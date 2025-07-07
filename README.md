@@ -11,7 +11,7 @@ https://adlnet.github.io/xapi-profiles/xapi-profiles-about.html
 | 保存フォルダ名 | プロファイル名 | 発行者 | 概要 | 主な内容 | 最新バージョン | JSON-LD Profile Ver URL | 実体ファイルへのリンク |
 |---|---|---|---|---|---|---|---|
 | acrossx | AcrossX | Across | eラーニングコンテンツのインタラクションを追跡するための汎用プロファイル。 | `experienced`, `progressed`, `answered` 等の動詞、様々なアクティビティタイプ | 1.0.1 | https://w3id.org/xapi/acrossx/v1.0.1 | [acrossx.jsonld](https://github.com/adlnet/xapi-authored-profiles/blob/master/acrossx/v1.0.1/acrossx.jsonld) |
-| activity-streams | Activity Streams | ADL Initiative | Activity Streams 1.0仕様から直接マッピングされた動詞を提供。 | `follow`, `like`, `share`, `save` 等の動詞 | - | http://activitystrea.ms/schema/ | [activity-streams.jsonld](https://github.com/adlnet/xapi-authored-profiles/blob/master/activity-streams/activity-streams.jsonld) |
+| activity-streams | Activity Streams | ADL Initiative | Activity Streams 1.0仕様から直接マッピングされた動詞を提供。(※W3Cが公開する最新のActivity Streamは[2.0](https://github.com/w3c/activitystreams)に進んでいる) | `follow`, `like`, `share`, `save` 等の動詞 | - | http://activitystrea.ms/schema/ | [activity-streams.jsonld](https://github.com/adlnet/xapi-authored-profiles/blob/master/activity-streams/activity-streams.jsonld) |
 | adb | ADB | ADL Initiative | ADLの「Intro to xAPI」コースとのインタラクションを追跡するためのプロファイル。 | `viewed`, `completed` 等の動詞、コース構造に関連するアクティビティタイプ | 1.0 | https://w3id.org/xapi/adb/v1.0 | [adb.jsonld](https://github.com/adlnet/xapi-authored-profiles/blob/master/adb/v1.0/adb.jsonld) |
 | adl | ADL | ADL Initiative | 多くの学習コンテキストで役立つ汎用的な動詞、アクティビティタイプ、拡張機能を提供。 | `interacted`, `exited`, `progressed` 等の動詞、`course`, `module` 等のアクティビティタイプ | 1.0 | https://w3id.org/xapi/adl/v1.0 | [adl.jsonld](https://github.com/adlnet/xapi-authored-profiles/blob/master/adl/v1.0/adl.jsonld) |
 | audio | Audio | ADL Initiative | オーディオメディアとのインタラクションを追跡するためのプロファイル。 | `played`, `paused`, `seeked`, `completed` 等の動詞、`audio` アクティビティタイプ | 1.0 | https://w3id.org/xapi/audio/v1.0 | [audio.jsonld](https://github.com/adlnet/xapi-authored-profiles/blob/master/audio/v1.0/audio.jsonld) |
@@ -61,12 +61,12 @@ https://adlnet.github.io/xapi-profiles/xapi-profiles-about.html
 ### [3.2. CBT システム(MEXCBT)の拡充・活用推進、教育データの利活用推進事業」〜xAPIの標準化に関する調査研究事業〜事業報告書)](https://www.mext.go.jp/content/20230808-mxt_syoto01-000028941_4-6.pdf)  
 eBook/Digital Textbook、Quiz/CBT、LMS/学習eポータルのxAPI Profile案が作成されている  
 以下に、公開されたPDFをもとに生成AIで仮作成したxAPI Profileを配置  
-[Link](./profiles/CBTシステムの拡充活用推進/cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld)  
+[Link](./profiles/CBTシステムの拡充活用推進/cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld)  
 ※コメントが付記されており、そのまま利用できるjsonldではない  
   
 ### [3.2. 令和 6 年度 スタディログの活用に関する調査研究](https://www.digital.go.jp/assets/contents/node/basic_page/field_ref_resources/cb8d084f-f9d3-4089-95db-11a9ae0dac5f/996f993f/20250418_policies_education_research_01_03%201.pdf)  
 以下に、公開されたPDFをもとに生成AIで仮作成したxAPI Profileを配置  
-[Link](./profiles/令和6年度スタディログの活用に関する調査研究/r6_studylog_from_pdfby_chatgpt_with_additinal_properties_by_github_copilot.jsonld)  
+[Link](./profiles/令和6年度スタディログの活用に関する調査研究/r6_studylog_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld)  
 ※コメントが付記されており、そのまま利用できるjsonldではない  
 
 # 日本国内の共通のxAPI Profile策定について  
