@@ -1,0 +1,487 @@
+{
+    "id": "http://schema.dases.eu/xapi/profile/common",
+    "@context": "https://w3id.org/xapi/profiles/context",
+    "type": "Profile",
+    "conformsTo": "https://w3id.org/xapi/profiles#1.0",
+    "prefLabel": {
+        "en": "DASES Common Profile"
+    },
+    "definition": {
+        "en": "Common profile of typical activities occurring in a LMS or educational app."
+    },
+    "seeAlso": "",
+    "versions": [
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "generatedAtTime": "2022-04-14T18:58:48.297Z"
+        }
+    ],
+    "author": {
+        "type": "Organization",
+        "name": "Gaia-X Data Space for Education and Skills (DASES)",
+        "url": "https://www.dases.eu"
+    },
+    "concepts": [
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/extension/starting-date",
+            "type": "ContextExtension",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "starting date"
+            },
+            "definition": {
+                "en": "This is the starting date of the activity, formatted according to the normal format of ISO 8601."
+            },
+            "inlineSchema": "{\"type\":\"string\"}\n"
+        },
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/extension/ending-date",
+            "type": "ContextExtension",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "ending date"
+            },
+            "definition": {
+                "en": "This is the ending date of the activity, formatted according to the normal format of ISO 8601.\n"
+            },
+            "inlineSchema": "{\"type\": \"string\"}"
+        },
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/extension/role",
+            "type": "ContextExtension",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "role"
+            },
+            "definition": {
+                "en": "This is the role of the actor. For example (but not limited to): admin, manager, teacher, guest, learner or staff."
+            },
+            "inlineSchema": "{\"type\": \"string\"}"
+        }
+    ],
+    "templates": [
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/templates/accessed-page",
+            "type": "StatementTemplate",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "Accessed a page"
+            },
+            "definition": {
+                "en": "The actor has accessed a page of a LMS or a website."
+            },
+            "verb": "https://w3id.org/xapi/netc/verbs/accessed",
+            "objectActivityType": "https://w3id.org/xapi/acrossx/activities/webpage",
+            "rules": [
+                {
+                    "location": "$.context.contextActivities.category.id",
+                    "presence": "included",
+                    "any": [
+                        "https://profiles.adlnet.gov/xapi/bf76a8cc-f46a-4065-aa7b-443df4efc2be/v/1"
+                    ]
+                },
+                {
+                    "location": "$.object.definition.extensions['https://w3id.org/xapi/acrossx/extensions/type']",
+                    "presence": "recommended",
+                    "any": [
+                        "course",
+                        "course_list",
+                        "user_space"
+                    ]
+                }
+            ],
+            "example": [
+                {
+                    "actor": {
+                        "objectType": "Agent",
+                        "account": {
+                            "homePage": "https://moodle.dases.eu",
+                            "name": "1"
+                        }
+                    },
+                    "verb": {
+                        "id": "https://w3id.org/xapi/netc/verbs/accessed",
+                        "display": {
+                            "en": "accessed"
+                        }
+                    },
+                    "object": {
+                        "id": "https://moodle.dases.eu/course/view.php?id=1",
+                        "definition": {
+                            "name": {
+                                "en": "Course name"
+                            },
+                            "description": {
+                                "en": "Course description"
+                            },
+                            "type": "https://w3id.org/xapi/acrossx/activities/webpage",
+                            "extensions": {
+                                "https://w3id.org/xapi/acrossx/extensions/type": "course"
+                            }
+                        },
+                        "objectType": "Activity"
+                    },
+                    "context": {
+                        "platform": "Moodle",
+                        "language": "en",
+                        "contextActivities": {
+                            "category": [
+                                {
+                                    "id": "https://profiles.adlnet.gov/xapi/bf76a8cc-f46a-4065-aa7b-443df4efc2be/v/1",
+                                    "objectType": "Activity"
+                                }
+                            ]
+                        }
+                    },
+                    "timestamp": "2022-04-14T10:00:00.000Z"
+                }
+            ]
+        },
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/templates/accessed-file",
+            "type": "StatementTemplate",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "Accessed a file"
+            },
+            "definition": {
+                "en": "The actor has accessed a file such as a pdf, doc, txt, ppt, xls, csv, etc."
+            },
+            "verb": "https://w3id.org/xapi/netc/verbs/accessed",
+            "objectActivityType": "http://activitystrea.ms/file",
+            "rules": [
+                {
+                    "location": "$.context.contextActivities.category.id",
+                    "presence": "included",
+                    "any": [
+                        "https://profiles.adlnet.gov/xapi/bf76a8cc-f46a-4065-aa7b-443df4efc2be/v/1"
+                    ]
+                },
+                {
+                    "location": "$.object.definition.extensions['https://w3id.org/xapi/acrossx/extensions/type']",
+                    "presence": "recommended"
+                }
+            ],
+            "example": [
+                {
+                    "actor": {
+                        "objectType": "Agent",
+                        "account": {
+                            "homePage": "https://moodle.dases.eu",
+                            "name": "1"
+                        }
+                    },
+                    "verb": {
+                        "id": "https://w3id.org/xapi/netc/verbs/accessed",
+                        "display": {
+                            "en": "accessed"
+                        }
+                    },
+                    "object": {
+                        "id": "https://moodle.dases.eu/mod/resource/view.php?id=1",
+                        "definition": {
+                            "name": {
+                                "en": "File name"
+                            },
+                            "description": {
+                                "en": "File description"
+                            },
+                            "type": "http://activitystrea.ms/file",
+                            "extensions": {
+                                "https://w3id.org/xapi/acrossx/extensions/type": "pdf"
+                            }
+                        },
+                        "objectType": "Activity"
+                    },
+                    "context": {
+                        "platform": "Moodle",
+                        "language": "en",
+                        "contextActivities": {
+                            "category": [
+                                {
+                                    "id": "https://profiles.adlnet.gov/xapi/bf76a8cc-f46a-4065-aa7b-443df4efc2be/v/1",
+                                    "objectType": "Activity"
+                                }
+                            ]
+                        }
+                    },
+                    "timestamp": "2022-04-14T10:00:00.000Z"
+                }
+            ]
+        },
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/templates/registered-course",
+            "type": "StatementTemplate",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "Registered to a course"
+            },
+            "definition": {
+                "en": "The actor is registered to a course."
+            },
+            "verb": "https://w3id.org/xapi/tla/verbs/registered",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/course",
+            "rules": [
+                {
+                    "location": "$.context.extensions['http://schema.dases.eu/xapi/profile/common/extension/starting-date']",
+                    "presence": "recommended"
+                },
+                {
+                    "location": "$.context.extensions['http://schema.dases.eu/xapi/profile/common/extension/ending-date']",
+                    "presence": "recommended"
+                },
+                {
+                    "location": "$.context.extensions['http://schema.dases.eu/xapi/profile/common/extension/role']",
+                    "presence": "recommended"
+                },
+                {
+                    "location": "$.timestamp",
+                    "presence": "included"
+                }
+            ],
+            "example": [
+                {
+                    "actor": {
+                        "objectType": "Agent",
+                        "account": {
+                            "homePage": "https://moodle.dases.eu",
+                            "name": "1"
+                        }
+                    },
+                    "verb": {
+                        "id": "https://w3id.org/xapi/tla/verbs/registered",
+                        "display": {
+                            "en": "registered"
+                        }
+                    },
+                    "object": {
+                        "id": "https://moodle.dases.eu/course/view.php?id=1",
+                        "definition": {
+                            "name": {
+                                "en": "Course name"
+                            },
+                            "description": {
+                                "en": "Course description"
+                            },
+                            "type": "http://adlnet.gov/expapi/activities/course"
+                        },
+                        "objectType": "Activity"
+                    },
+                    "context": {
+                        "platform": "Moodle",
+                        "language": "en",
+                        "extensions": {
+                            "http://schema.dases.eu/xapi/profile/common/extension/starting-date": "2022-04-14T10:00:00.000Z",
+                            "http://schema.dases.eu/xapi/profile/common/extension/ending-date": "2022-04-14T10:00:00.000Z",
+                            "http://schema.dases.eu/xapi/profile/common/extension/role": "learner"
+                        }
+                    },
+                    "timestamp": "2022-04-14T10:00:00.000Z"
+                }
+            ]
+        },
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/templates/unregistered-course",
+            "type": "StatementTemplate",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "Unregistered to a course"
+            },
+            "definition": {
+                "en": "The actor is unregistered to a course."
+            },
+            "verb": "http://id.tincanapi.com/verb/unregistered",
+            "objectActivityType": "http://adlnet.gov/expapi/activities/course",
+            "rules": [
+                {
+                    "location": "$.context.extensions['http://schema.dases.eu/xapi/profile/common/extension/starting-date']",
+                    "presence": "recommended"
+                },
+                {
+                    "location": "$.context.extensions['http://schema.dases.eu/xapi/profile/common/extension/ending-date']",
+                    "presence": "recommended"
+                },
+                {
+                    "location": "$.context.extensions['http://schema.dases.eu/xapi/profile/common/extension/role']",
+                    "presence": "recommended"
+                },
+                {
+                    "location": "$.timestamp",
+                    "presence": "included"
+                }
+            ],
+            "example": [
+                {
+                    "actor": {
+                        "objectType": "Agent",
+                        "account": {
+                            "homePage": "https://moodle.dases.eu",
+                            "name": "1"
+                        }
+                    },
+                    "verb": {
+                        "id": "http://id.tincanapi.com/verb/unregistered",
+                        "display": {
+                            "en": "unregistered"
+                        }
+                    },
+                    "object": {
+                        "id": "https://moodle.dases.eu/course/view.php?id=1",
+                        "definition": {
+                            "name": {
+                                "en": "Course name"
+                            },
+                            "description": {
+                                "en": "Course description"
+                            },
+                            "type": "http://adlnet.gov/expapi/activities/course"
+                        },
+                        "objectType": "Activity"
+                    },
+                    "context": {
+                        "platform": "Moodle",
+                        "language": "en",
+                        "extensions": {
+                            "http://schema.dases.eu/xapi/profile/common/extension/starting-date": "2022-04-14T10:00:00.000Z",
+                            "http://schema.dases.eu/xapi/profile/common/extension/ending-date": "2022-04-14T10:00:00.000Z",
+                            "http://schema.dases.eu/xapi/profile/common/extension/role": "learner"
+                        }
+                    },
+                    "timestamp": "2022-04-14T10:00:00.000Z"
+                }
+            ]
+        },
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/templates/uploaded-file",
+            "type": "StatementTemplate",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "Uploaded a file"
+            },
+            "definition": {
+                "en": "The actor has uploaded a file such as a pdf, doc, txt, ppt, xls, csv, etc."
+            },
+            "verb": "https://w3id.org/xapi/netc/verbs/uploaded",
+            "objectActivityType": "http://activitystrea.ms/file",
+            "rules": [
+                {
+                    "location": "$.context.contextActivities.category",
+                    "presence": "included"
+                },
+                {
+                    "location": "$.timestamp",
+                    "presence": "included"
+                }
+            ],
+            "example": [
+                {
+                    "actor": {
+                        "objectType": "Agent",
+                        "account": {
+                            "homePage": "https://moodle.dases.eu",
+                            "name": "1"
+                        }
+                    },
+                    "verb": {
+                        "id": "https://w3id.org/xapi/netc/verbs/uploaded",
+                        "display": {
+                            "en": "uploaded"
+                        }
+                    },
+                    "object": {
+                        "id": "https://moodle.dases.eu/mod/resource/view.php?id=1",
+                        "definition": {
+                            "name": {
+                                "en": "File name"
+                            },
+                            "description": {
+                                "en": "File description"
+                            },
+                            "type": "http://activitystrea.ms/file"
+                        },
+                        "objectType": "Activity"
+                    },
+                    "context": {
+                        "platform": "Moodle",
+                        "language": "en",
+                        "contextActivities": {
+                            "category": [
+                                {
+                                    "id": "https://moodle.dases.eu/course/view.php?id=1",
+                                    "objectType": "Activity"
+                                }
+                            ]
+                        }
+                    },
+                    "timestamp": "2022-04-14T10:00:00.000Z"
+                }
+            ]
+        },
+        {
+            "id": "http://schema.dases.eu/xapi/profile/common/templates/downloaded-file",
+            "type": "StatementTemplate",
+            "inScheme": "http://schema.dases.eu/xapi/profile/common/v/1",
+            "prefLabel": {
+                "en": "Downloaded a file"
+            },
+            "definition": {
+                "en": "The actor has downloaded a file such as a pdf, doc, txt, ppt, xls, csv, etc."
+            },
+            "verb": "http://id.tincanapi.com/verb/downloaded",
+            "objectActivityType": "http://activitystrea.ms/file",
+            "rules": [
+                {
+                    "location": "$.context.contextActivities.category",
+                    "presence": "included"
+                },
+                {
+                    "location": "$.timestamp",
+                    "presence": "included"
+                }
+            ],
+            "example": [
+                {
+                    "actor": {
+                        "objectType": "Agent",
+                        "account": {
+                            "homePage": "https://moodle.dases.eu",
+                            "name": "1"
+                        }
+                    },
+                    "verb": {
+                        "id": "http://id.tincanapi.com/verb/downloaded",
+                        "display": {
+                            "en": "downloaded"
+                        }
+                    },
+                    "object": {
+                        "id": "https://moodle.dases.eu/mod/resource/view.php?id=1",
+                        "definition": {
+                            "name": {
+                                "en": "File name"
+                            },
+                            "description": {
+                                "en": "File description"
+                            },
+                            "type": "http://activitystrea.ms/file"
+                        },
+                        "objectType": "Activity"
+                    },
+                    "context": {
+                        "platform": "Moodle",
+                        "language": "en",
+                        "contextActivities": {
+                            "category": [
+                                {
+                                    "id": "https://moodle.dases.eu/course/view.php?id=1",
+                                    "objectType": "Activity"
+                                }
+                            ]
+                        }
+                    },
+                    "timestamp": "2022-04-14T10:00:00.000Z"
+                }
+            ]
+        }
+    ]
+}

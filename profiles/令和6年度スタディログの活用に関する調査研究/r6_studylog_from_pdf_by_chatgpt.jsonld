@@ -1,0 +1,320 @@
+  /* ───────────────────────────────
+     このファイルは以下に公開されている「令和 6 年度 スタディログの活用に関する調査研究＜実証事業報告書 別紙＞」を参照しChatGPTで作成しました
+     https://www.digital.go.jp/assets/contents/node/basic_page/field_ref_resources/cb8d084f-f9d3-4089-95db-11a9ae0dac5f/996f993f/20250418_policies_education_research_01_03%201.pdf
+     ─────────────────────────────── */
+{
+  "@context": "https://w3id.org/xapi/profiles/context",
+  "id": "https://example.org/profile/studylog",
+  "type": "Profile",
+  "prefLabel": {
+    "ja": "スタディログ活用プロファイル",
+    "en": "Study-Log Profile"
+  },
+  "version": "2025-03-27",
+  "author": { "type": "Organization", "name": "NTT Communications Corporation" },
+
+  /* ───────────────────────────────
+     1.2 既存プロファイル・統制語彙の参照
+     ─────────────────────────────── */
+  "wasDerivedFrom": [
+    "https://profiles.adlnet.gov/profile/3270df72-2d3a-40fe-adf6-86db6d8671b1",  /* ADL Vocabulary */
+    "https://profiles.adlnet.gov/profile/b4b035ea-5a25-45b0-bef0-5875f669e8cc",  /* TinCan Vocabulary */
+    "https://registry.tincanapi.com/#profile/60/recipes",                        /* xAPI-SRL */
+    "https://www.soumu.go.jp/main_content/000683941.pdf#page=105",              /* スマスク仕様 4.8 */
+    "https://ictconnect21.jp/ict/wp-content/uploads/2021/04/210325_ver1_00_eportalswg.pdf"  /* eポータル標準モデル */
+  ],
+
+  /* ======================================================================
+     2. 共通ユースケース
+     ====================================================================== */
+  "templates": [
+
+    /* 2.1.1 学習コンテンツアプリケーションの起動 :contentReference[oaicite:22]{index=22} */
+    {
+      "comment": "2.1.1 学習コンテンツアプリケーションの起動",
+      "id": "#launch-app",
+      "type": "StatementTemplate",
+      "verb": "https://w3id.org/xapi/adl/verbs/launched",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended",
+          "scopeNote": "個々の学習コンテンツの URL" },
+        { "location": "$.context.contextActivities.category[*].id", "presence": "included",
+          "scopeNote": "利用プロファイル／アプリ種別 ID" },                                  /* 2.1.1.1-1.2 表 */ :contentReference[oaicite:23]{index=23}
+        { "location": "$.context.contextActivities.category[*].definition.type", "presence": "included",
+          "all": "https://example.org/xapi/profile" },
+        { "location": "$.actor.account.homePage", "presence": "included",
+          "scopeNote": "IdP の URL" },                                                        /* 2.1.1.3 表 */ :contentReference[oaicite:24]{index=24}
+        { "location": "$.actor.account.name", "presence": "included",
+          "scopeNote": "ユーザ ID" }
+      ]
+    },
+
+    /* 2.1.2.1 問題解答型学習コンテンツの起動 :contentReference[oaicite:25]{index=25} */
+    {
+      "comment": "2.1.2.1 問題解答型学習コンテンツの起動",
+      "id": "#quiz-content-launch",
+      "type": "StatementTemplate",
+      "verb": "http://adlnet.gov/expapi/verbs/attempted",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/question"
+    },
+
+    /* 2.1.2.2 参照用コンテンツ閲覧 :contentReference[oaicite:26]{index=26} */
+    {
+      "comment": "2.1.2.2 参照用コンテンツ閲覧",
+      "id": "#view-reference",
+      "type": "StatementTemplate",
+      "verb": "https://w3id.org/xapi/adb/verbs/viewed",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/link",
+      "rules": [
+        { "location": "$.object.id", "presence": "included",
+          "scopeNote": "遷移先 URI" },
+        { "location": "$.result.response", "presence": "recommended",
+          "scopeNote": "HTTP ステータスコード" }
+      ]
+    },
+
+    /* 2.1.3 学習コンテンツ終了 :contentReference[oaicite:27]{index=27} */
+    {
+      "comment": "2.1.3 学習コンテンツ終了",
+      "id": "#exit-app",
+      "type": "StatementTemplate",
+      "verb": "https://w3id.org/xapi/adl/verbs/exited",
+      "rules": [
+        { "location": "$.object.id", "presence": "included",
+          "scopeNote": "対象学習コンテンツの URL" }
+      ]
+    },
+
+    /* 2.3.1 課題を配布する :contentReference[oaicite:28]{index=28} */
+    {
+      "comment": "2.3.1 課題を配布する",
+      "id": "#assignment-shared",
+      "type": "StatementTemplate",
+      "verb": "http://adlnet.gov/expapi/verbs/shared",
+      "objectActivityType": "http://id.tincanapi.com/activitytype/school-assignment"
+    },
+
+    /* ======================================================================
+       3. 問題解答ユースケース
+       ====================================================================== */
+
+    /* 3.1.1 構成単位の開始 :contentReference[oaicite:29]{index=29} */
+    {
+      "comment": "3.1.1 構成単位の開始",
+      "id": "#composition-start",
+      "type": "StatementTemplate",
+      "verb": "http://adlnet.gov/expapi/verbs/attempted",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/assessment",
+      "rules": [
+        { "location": "$.object.id", "presence": "included",
+          "scopeNote": "対象範囲 activityId" },
+        { "location": "$.context.contextExtensions.'{$BASEURL}/xapi/contentextension/scene'.lifescene",
+          "presence": "recommended",
+          "scopeNote": "scene（場面）" },
+        { "location": "$.result.extensions.'{$BASEURL}/xapi/resultextension/count'",
+          "presence": "recommended",
+          "scopeNote": "count（実施回数）" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/strict'",
+          "presence": "recommended" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/difficulty'",
+          "presence": "recommended" }
+      ]
+    },
+
+    /* 3.1.2 構成単位の完了 :contentReference[oaicite:30]{index=30} */
+    {
+      "comment": "3.1.2 構成単位の完了",
+      "id": "#composition-completed",
+      "type": "StatementTemplate",
+      "verb": "http://adlnet.gov/expapi/verbs/completed",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/assessment",
+      "rules": [
+        { "location": "$.object.id", "presence": "included",
+          "scopeNote": "activityId" },
+        { "location": "$.result.success", "presence": "recommended" },
+        { "location": "$.result.completion", "presence": "recommended" },
+        { "location": "$.result.score", "presence": "recommended" },
+        { "location": "$.result.extensions.'criteriaScore'", "presence": "recommended",
+          "scopeNote": "criteriaScore（観点別配点）" }
+      ]
+    },
+
+    /* 3.2.1 解答単位の完了 :contentReference[oaicite:31]{index=31} */
+    {
+      "comment": "3.2.1 解答単位の完了",
+      "id": "#answer-question",
+      "type": "StatementTemplate",
+      "verb": "http://adlnet.gov/expapi/verbs/answered",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/cmi.interaction",
+      "rules": [
+        { "location": "$.object.id", "presence": "included" },
+        { "location": "$.result.success", "presence": "recommended" },
+        { "location": "$.result.completion", "presence": "recommended" },
+        { "location": "$.result.score", "presence": "recommended" },
+        { "location": "$.result.response", "presence": "recommended" },
+        { "location": "$.context.contextExtensions.'{$BASEURL}/xapi/contentextension/scene'.lifescene",
+          "presence": "recommended" },
+        { "location": "$.result.extensions.'{$BASEURL}/xapi/resultextension/count'",
+          "presence": "recommended" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/strict'",
+          "presence": "recommended" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/difficulty'",
+          "presence": "recommended" }
+      ]
+    },
+
+    /* 3.3 インタラクション情報取得 :contentReference[oaicite:32]{index=32} */
+    {
+      "comment": "3.3 インタラクション情報取得",
+      "id": "#interaction",
+      "type": "StatementTemplate",
+      "verb": "http://adlnet.gov/expapi/verbs/interacted",
+      "rules": [
+        { "location": "$.context.extensions['http://id.tincanapi.com/extension/starting-point']",
+          "presence": "recommended", "scopeNote": "ISO8601 時刻 (開始)" },
+        { "location": "$.context.extensions['http://id.tincanapi.com/extension/ending-point']",
+          "presence": "recommended", "scopeNote": "ISO8601 時刻 (終了)" }
+      ]
+    },
+
+    /* 3.4 問題情報のブックマーク :contentReference[oaicite:33]{index=33} */
+    {
+      "comment": "3.4 問題情報のブックマーク",
+      "id": "#bookmark",
+      "type": "StatementTemplate",
+      "verb": "http://id.tincanapi.com/verb/bookmarked",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/assessment",
+      "rules": [
+        { "location": "$.object.id", "presence": "included",
+          "scopeNote": "対象問題 activityId" }
+      ]
+    },
+
+    /* ======================================================================
+       4. 自己調整型学習支援ユースケース
+       ====================================================================== */
+
+    /* 4.2.1 学習の目標を設定する :contentReference[oaicite:34]{index=34} */
+    {
+      "comment": "4.2.1 学習の目標を設定する",
+      "id": "#srl-goal-defined",
+      "type": "StatementTemplate",
+      "verb": "http://id.tincanapi.com/verb/defined",
+      "objectActivityType": "http://id.tincanapi.com/activitytype/goal",
+      "contextCategoryActivityType": "http://id.tincanapi.com/recipe/srl/task-goal-management/0.1",
+      "rules": [
+        { "location": "$.object.id", "presence": "included" },
+        { "location": "$.result.response", "presence": "recommended" }
+      ]
+    },
+
+    /* 4.2.2 学習の実施内容を設定する :contentReference[oaicite:35]{index=35} */
+    {
+      "comment": "4.2.2 学習の実施内容を設定する",
+      "id": "#srl-task-edited",
+      "type": "StatementTemplate",
+      "verb": "http://curatr3.com/define/verb/edited",
+      "objectActivityType": "http://activitystrea.ms/schema/1.0/task",
+      "contextCategoryActivityType": "http://id.tincanapi.com/recipe/srl/task-goal-management/0.1",
+      "rules": [
+        { "location": "$.object.id", "presence": "included" },
+        { "location": "$.context.contextActivities.other[*].id", "presence": "included",
+          "scopeNote": "学習内容 ID（順序＝優先度）" },
+        { "location": "$.context.contextActivities.parent[*].id", "presence": "recommended" }
+      ]
+    },
+
+    /* 4.2.4 学習の予見を設定する :contentReference[oaicite:36]{index=36} */
+    {
+      "comment": "4.2.4 学習の予見を設定する",
+      "id": "#srl-schedule-forecast",
+      "type": "StatementTemplate",
+      "verb": "http://activitystrea.ms/schema/1.0/schedule",
+      "objectActivityType": "http://id.tincanapi.com/activitytype/strategy",
+      "contextCategoryActivityType": "http://id.tincanapi.com/recipe/srl/Planning/0.1",
+      "rules": [
+        { "location": "$.object.id", "presence": "included" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/forecast'",
+          "presence": "recommended" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/learningpace'",
+          "presence": "recommended" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/learningform'",
+          "presence": "recommended" },
+        { "location": "$.result.completion", "presence": "recommended" }
+      ]
+    },
+
+    /* 4.3.1 授業の学習経過を記録する :contentReference[oaicite:37]{index=37} */
+    {
+      "comment": "4.3.1 授業の学習経過を記録する",
+      "id": "#srl-progress-reviewed",
+      "type": "StatementTemplate",
+      "verb": "http://id.tincanapi.com/verb/reviewed",
+      "objectActivityType": "http://id.tincanapi.com/activitytype/strategy",
+      "rules": [
+        { "location": "$.object.id", "presence": "included" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/progress'",
+          "presence": "recommended" }
+      ]
+    },
+
+    /* 4.4.1 学習結果を省察する（Goal） :contentReference[oaicite:38]{index=38} */
+    {
+      "comment": "4.4.1 学習結果を省察する（goal）",
+      "id": "#srl-goal-reflect",
+      "type": "StatementTemplate",
+      "verb": "{$BASE_URL}/xapi/verbextension/reflected",
+      "objectActivityType": "http://id.tincanapi.com/activitytype/goal",
+      "contextCategoryActivityType": "http://id.tincanapi.com/recipe/srl/task-goal-management/0.1",
+      "rules": [
+        { "location": "$.object.id", "presence": "included" },
+        { "location": "$.result.response", "presence": "recommended" }
+      ]
+    },
+
+    /* 4.4.2 学習結果を省察する（Strategy） :contentReference[oaicite:39]{index=39} */
+    {
+      "comment": "4.4.2 学習結果を省察する（strategy）",
+      "id": "#srl-strategy-reflect",
+      "type": "StatementTemplate",
+      "verb": "{$BASE_URL}/xapi/verbextension/reflected",
+      "objectActivityType": "http://id.tincanapi.com/activitytype/strategy",
+      "contextCategoryActivityType": "http://id.tincanapi.com/recipe/srl/Planning/0.1",
+      "rules": [
+        { "location": "$.object.id", "presence": "included" },
+        { "location": "$.object.definition.extensions.'http://id.tincanapi.com/extension/attempt-id'",
+          "presence": "included" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/achievement'",
+          "presence": "recommended" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/comprehension'",
+          "presence": "recommended" },
+        { "location": "$.object.definition.extensions.'{$BASEURL}/xapi/activityextension/satisfaction'",
+          "presence": "recommended" },
+        { "location": "$.context.contextActivities.other[*].id", "presence": "included" },
+        { "location": "$.result.response", "presence": "recommended" }
+      ]
+    },
+
+    /* ======================================================================
+       5. メッセージ送信ユースケース
+       ====================================================================== */
+
+    /* 5.1 メッセージを作成する :contentReference[oaicite:40]{index=40} */
+    {
+      "comment": "5.1 メッセージを作成する",
+      "id": "#message-create",
+      "type": "StatementTemplate",
+      "verb": "http://adlnet.gov/expapi/verbs/commented#assist",
+      "rules": [
+        { "location": "$.object.account.name", "presence": "included",
+          "scopeNote": "送信先個人識別子" },
+        { "location": "$.result.response", "presence": "included",
+          "scopeNote": "メッセージ本文" },
+        { "location": "$.context.extensions.'{$BASEURL}/xapi/contextextension/trigger'",
+          "presence": "recommended" },
+        { "location": "$.context.extensions.'{$BASEURL}/xapi/contextextension/responsetype'",
+          "presence": "recommended" }
+      ]
+    }
+  ] /* ← templates end */
+}

@@ -1,0 +1,254 @@
+{
+  "@context": [
+    "https://w3id.org/xapi/profiles/context",
+    { "schema": "http://schema.org/", "id": "@id", "type": "@type" }
+  ],
+  "id": "https://xapi.let/profile/education-data-20230331",
+  "type": "Profile",
+  "prefLabel": { "en": "Education Data Profile (eBook, LMS, Quiz/CBT) – 2023-03-31" },
+  "definition": {
+    "en": "Aggregated xAPI profile combining the statement templates for the eBook/Digital-Textbook, LMS/Learning-ePortal and Quiz/CBT tools as described in the Statement Data (31 Mar 2023)."
+  },
+
+  /* ---------- Concepts (verbs & activity types) ---------- */
+  "concepts": [
+    { "id": "http://adlnet.gov/expapi/verbs/launched",  "type": "Verb", "prefLabel": { "en": "launched"   }},
+    { "id": "http://activitystrea.ms/schema/1.0/read",  "type": "Verb", "prefLabel": { "en": "read"       }},
+    { "id": "https://w3id.org/xapi/adb/verbs/noted",     "type": "Verb", "prefLabel": { "en": "noted"      }},
+    { "id": "https://w3id.org/xapi/adb/verbs/highlighted","type": "Verb","prefLabel": { "en": "highlighted"}},
+    { "id": "https://brindlewaye.com/xAPITerms/verbs/loggedin/", "type": "Verb", "prefLabel": { "en": "logged in" }},
+    { "id": "http://activitystrea.ms/schema/1.0/submit", "type": "Verb", "prefLabel": { "en": "submitted"  }},
+    { "id": "http://adlnet.gov/expapi/verbs/attempted",  "type": "Verb", "prefLabel": { "en": "attempted"  }},
+    { "id": "http://adlnet.gov/expapi/verbs/completed",  "type": "Verb", "prefLabel": { "en": "completed"  }},
+    { "id": "http://adlnet.gov/expapi/verbs/answered",   "type": "Verb", "prefLabel": { "en": "answered"   }}
+  ],
+
+  /* ---------- Patterns (example) ---------- */
+  "patterns": [
+    {
+      "id": "https://xapi.let/patterns/reading-sequence",
+      "type": "Pattern",
+      "prefLabel": { "en": "Reading sequence" },
+      "definition": { "en": "Typical flow of reading pages in a digital textbook – one or more NEXT statements optionally followed by PREV." },
+      "primary": {
+        "type": "sequence",
+        "items": [
+          { "type": "template", "id": "https://xapi.let/eBook_digital-textbook/templates/next" },
+          { "type": "zeroOrMore", "item": { "type": "template", "id": "https://xapi.let/eBook_digital-textbook/templates/next" }},
+          { "type": "optional", "item": { "type": "template", "id": "https://xapi.let/eBook_digital-textbook/templates/prev" }}
+        ]
+      }
+    }
+  ],
+
+  /* ---------- StatementTemplates (22 件) ---------- */
+  "templates": [
+    /* ----- eBook / Digital-Textbook (10) ----- */
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/open",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "OPEN" },
+      "description": { "en": "A learner opened the digital-textbook content." },
+      "verb": "http://adlnet.gov/expapi/verbs/launched",
+      "rules": [
+        { "location": "context.platform", "all": ["eBook/Digital Textbook"] },
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["OPEN"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/next",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "NEXT" },
+      "description": { "en": "A learner turned to the next page." },
+      "verb": "http://activitystrea.ms/schema/1.0/read",
+      "rules": [
+        { "location": "context.platform", "all": ["eBook/Digital Textbook"] },
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["NEXT"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/prev",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "PREV" },
+      "description": { "en": "A learner returned to the previous page." },
+      "verb": "http://activitystrea.ms/schema/1.0/read",
+      "rules": [
+        { "location": "context.platform", "all": ["eBook/Digital Textbook"] },
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["PREV"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/add_memo",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "ADD_MEMO" },
+      "description": { "en": "A learner created a text memo on the page." },
+      "verb": "https://w3id.org/xapi/adb/verbs/noted",
+      "rules": [
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["ADD_MEMO"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/delete_memo",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "DELETE_MEMO" },
+      "description": { "en": "A learner deleted a memo." },
+      "verb": "https://w3id.org/xapi/adb/verbs/noted",
+      "rules": [
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["DELETE_MEMO"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/change_memo",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "CHANGE_MEMO" },
+      "description": { "en": "A learner updated an existing memo." },
+      "verb": "https://w3id.org/xapi/adb/verbs/noted",
+      "rules": [
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["CHANGE_MEMO"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/add_marker",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "ADD_MARKER" },
+      "description": { "en": "A learner highlighted part of the page." },
+      "verb": "https://w3id.org/xapi/adb/verbs/highlighted",
+      "rules": [
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["ADD_MARKER"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/delete_marker",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "DELETE_MARKER" },
+      "description": { "en": "A learner removed a highlight." },
+      "verb": "https://w3id.org/xapi/adb/verbs/highlighted",
+      "rules": [
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["DELETE_MARKER"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/add_hw_memo",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "ADD_HW_MEMO" },
+      "description": { "en": "A learner wrote a handwritten memo." },
+      "verb": "https://w3id.org/xapi/adb/verbs/noted",
+      "rules": [
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["ADD_HW_MEMO"] }
+      ]
+    },
+    {
+      "id": "https://xapi.let/eBook_digital-textbook/templates/clear_hw_memo",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "CLEAR_HW_MEMO" },
+      "description": { "en": "A learner deleted handwritten memos." },
+      "verb": "https://w3id.org/xapi/adb/verbs/noted",
+      "rules": [
+        { "location": "object.definition.extensions.http://commoninfo.let.media.kyoto-u.ac.jp.operation_name", "all": ["CLEAR_HW_MEMO"] }
+      ]
+    },
+
+    /* ----- LMS / Learning ePortal (4) ----- */
+    {
+      "id": "https://xapi.let/lms_learning-eportal/templates/launched",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "launched (LMS)" },
+      "description": { "en": "A learner opened a tool from the LMS/learning-portal." },
+      "verb": "http://adlnet.gov/expapi/verbs/launched",
+      "rules": [{ "location": "context.platform", "all": ["LMS/Learning ePortal"] }]
+    },
+    {
+      "id": "https://xapi.let/lms_learning-eportal/templates/loggedin",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "loggedin" },
+      "description": { "en": "A learner logged into the LMS/learning-portal." },
+      "verb": "https://brindlewaye.com/xAPITerms/verbs/loggedin/",
+      "rules": [{ "location": "context.platform", "all": ["LMS/Learning ePortal"] }]
+    },
+    {
+      "id": "https://xapi.let/lms_learning-eportal/templates/submitted",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "submitted" },
+      "description": { "en": "A learner submitted an activity (e.g., assignment) in the LMS." },
+      "verb": "http://activitystrea.ms/schema/1.0/submit",
+      "rules": [{ "location": "context.platform", "all": ["LMS/Learning ePortal"] }]
+    },
+    {
+      "id": "https://xapi.let/lms_learning-eportal/templates/viewed",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "viewed" },
+      "description": { "en": "A learner viewed an activity in the LMS." },
+      "verb": "http://id.tincanapi.com/verb/viewed",
+      "rules": [{ "location": "context.platform", "all": ["LMS/Learning ePortal"] }]
+    },
+
+    /* ----- Quiz / CBT (8) ----- */
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/launched",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "launched (CBT)" },
+      "description": { "en": "Launch of the CBT application or assessment." },
+      "verb": "http://adlnet.gov/expapi/verbs/launched",
+      "rules": [{ "location": "context.platform", "all": ["CBT"] }]
+    },
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/attempted",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "attempted" },
+      "description": { "en": "The learner started the assessment." },
+      "verb": "http://adlnet.gov/expapi/verbs/attempted",
+      "rules": [{ "location": "context.platform", "all": ["CBT"] }]
+    },
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/answered_item",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "answered item" },
+      "description": { "en": "Answered a single-interaction question." },
+      "verb": "http://adlnet.gov/expapi/verbs/answered",
+      "rules": [{ "location": "object.definition.type", "all": ["http://adlnet.gov/expapi/activities/cmi.interaction"] }]
+    },
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/answered_item_with_interactions",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "answered item (multi-interactions)" },
+      "description": { "en": "Answered a page containing multiple interactions and auto-scoring." },
+      "verb": "http://adlnet.gov/expapi/verbs/answered",
+      "rules": [{ "location": "result.extensions.https://xapi.let/quiz_cbt/extensions/scoring_type", "all": ["auto"] }]
+    },
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/answered_item_with_interactions_no_grading",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "answered item (multi-interactions, no grading)" },
+      "description": { "en": "Answered a multi-interaction page without automatic scoring." },
+      "verb": "http://adlnet.gov/expapi/verbs/answered",
+      "rules": [{ "location": "result.extensions.https://xapi.let/quiz_cbt/extensions/scoring_type", "all": ["self"] }]
+    },
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/answered_interaction",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "answered interaction" },
+      "description": { "en": "Answered a single interaction inside a multi-interaction page." },
+      "verb": "http://adlnet.gov/expapi/verbs/answered",
+      "rules": [{ "location": "object.definition.type", "all": ["http://adlnet.gov/expapi/activities/cmi.interaction"] }]
+    },
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/completed",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "completed" },
+      "description": { "en": "Completed an auto-scored test." },
+      "verb": "http://adlnet.gov/expapi/verbs/completed",
+      "rules": [{ "location": "result.completion", "all": [true] }]
+    },
+    {
+      "id": "https://xapi.let/quiz_cbt/templates/completed_no_grading",
+      "type": "StatementTemplate",
+      "prefLabel": { "en": "completed (no grading)" },
+      "description": { "en": "Completed a test where the score is hidden." },
+      "verb": "http://adlnet.gov/expapi/verbs/completed",
+      "rules": [
+        { "location": "result.completion", "all": [true] },
+        { "location": "result.score", "none": [] }
+      ]
+    }
+  ]
+}

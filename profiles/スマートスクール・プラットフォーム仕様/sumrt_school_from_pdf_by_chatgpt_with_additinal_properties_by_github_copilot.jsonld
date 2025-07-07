@@ -1,0 +1,508 @@
+{
+  "@context": [
+    "https://w3id.org/xapi/profiles/context",
+    { "dct": "http://purl.org/dc/terms/" }
+  ],
+  "id": "http://sspf.example.org/xapi/",
+  "type": "Profile",
+  "conformsTo": "https://w3id.org/xapi/profiles#1.0",
+  "prefLabel": { "ja": "スマートスクールプラットフォームプロファイル" },
+  "definition": {
+    "ja": "スマートスクール・プラットフォーム間で学習履歴を共通交換するための xAPI プロファイル。"
+  },
+  "versions": [
+    {
+      "id": "https://sspf.example.org/xapi/v1.0",
+      "generatedAtTime": "2025-07-07T00:00:00Z"
+    }
+  ],
+  "author": { "name": "総務省 スマートスクール・プラットフォーム WG" },
+  "concepts": [
+
+    /* ---------- Verb (4.8.2) ---------- */
+    {
+      "id": "https://sspf.example.org/xapi/verbs/launch",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "起動" },
+      "definition": { "ja": "学習コンテンツの起動時に用いられる。" },
+      "exactMatch": [ "https://w3id.org/xapi/adl/verbs/launched" ],
+      "dct:source": "4.8.2.1"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/verbs/exited",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "終了" },
+      "definition": { "ja": "学習コンテンツまたは学習の終了時に用いられる。" },
+      "exactMatch": [ "https://w3id.org/xapi/adl/verbs/exited" ],
+      "dct:source": "4.8.2.2"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/verbs/experienced",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "経験の発生" },
+      "definition": { "ja": "学習経験の発生時に用いられる。" },
+      "exactMatch": [ "http://adlnet.gov/expapi/verbs/experienced" ],
+      "dct:source": "4.8.2.3"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/verbs/unexperienced",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "経験の未発生" },
+      "definition": { "ja": "学習経験の未発生を明示する際に用いられる。" },
+      "dct:source": "4.8.2.4"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/verbs/answered",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "解答・回答" },
+      "definition": { "ja": "設問への解答／アンケート回答時に用いられる。" },
+      "exactMatch": [ "http://adlnet.gov/expapi/verbs/answered" ],
+      "dct:source": "4.8.2.5"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/verbs/completed",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "完了" },
+      "definition": { "ja": "複数設問コンテンツの完了時に用いられる。" },
+      "exactMatch": [ "http://adlnet.gov/expapi/verbs/completed" ],
+      "dct:source": "4.8.2.6"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/verbs/scoring",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "採点" },
+      "definition": { "ja": "解答に対して採点を行う活動に用いられる。" },
+      "dct:source": "4.8.2.7"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/verbs/analyzed",
+      "type": "Verb",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "分析" },
+      "definition": { "ja": "アンケート回答を分析する活動に用いられる。" },
+      "dct:source": "4.8.2.8"
+    },
+
+    /* ------- ActivityType (4.8.3) ------- */
+    {
+      "id": "https://sspf.example.org/xapi/activitytype/question",
+      "type": "ActivityType",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "単問" },
+      "definition": { "ja": "クイズやアンケートを構成する設問。" },
+      "exactMatch": [ "http://adlnet.gov/expapi/activities/question" ],
+      "dct:source": "4.8.3.1"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/activitytype/assessment",
+      "type": "ActivityType",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "テスト・問題集" },
+      "definition": { "ja": "複数設問で構成されるテストや問題集。" },
+      "exactMatch": [ "http://adlnet.gov/expapi/activities/assessment" ],
+      "recommendedActivityTypes": [
+        "https://sspf.example.org/xapi/activitytype/question"
+      ],
+      "dct:source": "4.8.3.2"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/activitytype/survey",
+      "type": "ActivityType",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "アンケート" },
+      "definition": { "ja": "複数設問で構成されるアンケート。" },
+      "exactMatch": [ "http://id.tincanapi.com/activitytype/survey" ],
+      "dct:source": "4.8.3.3"
+    },
+
+    /* ---- ActivityExtension (4.8.4) ---- */
+    {
+      "id": "https://sspf.example.org/xapi/activityextension/difficulty",
+      "type": "ActivityExtension",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "難易度" },
+      "definition": { "ja": "1.0〜5.0 の数値で難易度を示す (3 が基準値)。" },
+      "exactMatch": [ "https://w3id.org/xapi/gblxapi/extensions/difficulty" ],
+      "inlineSchema": { "type": "number", "minimum": 1, "maximum": 5 },
+      "dct:source": "4.8.4.1"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/activityextension/strict",
+      "type": "ActivityExtension",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "実施厳密性" },
+      "definition": { "ja": "解答開始前に問題確認可否を示す。" },
+      "inlineSchema": { "type": "boolean" },
+      "dct:source": "4.8.4.2"
+    },
+
+    /* ----- ResultExtension (4.8.5) ----- */
+    {
+      "id": "https://sspf.example.org/xapi/resultextension/count",
+      "type": "ResultExtension",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "実施回数" },
+      "definition": { "ja": "当該コンテンツの取り組み回数。" },
+      "inlineSchema": { "type": "integer", "minimum": 0 },
+      "dct:source": "4.8.5.1"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/resultextension/criteriaScore",
+      "type": "ResultExtension",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "観点別配点と結果" },
+      "definition": { "ja": "観点別評価の配点と結果を示す。" },
+      "inlineSchema": {
+        "type": "object",
+        "properties": {
+          "criterion": { "type": "string" },
+          "raw":       { "type": "integer" },
+          "min":       { "type": "integer" },
+          "max":       { "type": "integer" }
+        },
+        "required": [ "criterion", "raw" ]
+      },
+      "dct:source": "4.8.5.2"
+    },
+
+    /* ---- ContextExtension (4.8.6) ---- */
+    {
+      "id": "https://sspf.example.org/xapi/contextextension/user-agent",
+      "type": "ContextExtension",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "User-Agent" },
+      "definition": { "ja": "接続元ブラウザ等の User-Agent。" },
+      "exactMatch": [ "https://w3id.org/xapi/video/extensions/user-agent" ],
+      "inlineSchema": { "type": "string" },
+      "dct:source": "4.8.6.1"
+    },
+    {
+      "id": "https://sspf.example.org/xapi/contextextension/scene",
+      "type": "ContextExtension",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "場面" },
+      "definition": { "ja": "学校場面 lifescene と学習場面 learningscene を保持する。" },
+      "inlineSchema": {
+        "type": "object",
+        "properties": {
+          "lifescene":    { "type": "string" },
+          "learningscene":{ "type": "string" }
+        }
+      },
+      "dct:source": "4.8.6.2"
+    },
+
+    /* -- AttachmentUsageType (4.8.7) -- */
+    {
+      "id": "https://sspf.example.org/xapi/attachmentusagetype/supporting_media",
+      "type": "AttachmentUsageType",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "補足情報ファイル" },
+      "definition": { "ja": "学習経験時に発生したマルチメディア情報。" },
+      "exactMatch": [ "http://id.tincanapi.com/attachment/supporting_media" ],
+      "dct:source": "4.8.7.1"
+    }
+  ],
+
+  /* -------- StatementTemplates (4.8.8) -------- */
+  "templates": [
+    {
+      "id": "https://sspf.example.org/xapi/templates#launch",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "アプリケーション起動" },
+      "definition": { "ja": "学習者が学習コンテンツアプリケーションを起動したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/launch",
+      "rules": [ { "location": "$.timestamp", "presence": "recommended" } ],
+      "dct:source": "4.8.8.1",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/launch" },
+          "object": { "id": "https://sspf.example.org/activities/app/1" },
+          "timestamp": "2025-07-07T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templates#start_learning",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "学習開始" },
+      "definition": { "ja": "学習者が学習活動を開始したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/experienced",
+      "rules": [ { "location": "$.timestamp", "presence": "recommended" } ],
+      "dct:source": "4.8.8.2",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/experienced" },
+          "object": { "id": "https://sspf.example.org/activities/course/1" },
+          "timestamp": "2025-07-07T09:01:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templates#finish_learning",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "学習終了" },
+      "definition": { "ja": "学習者が学習活動を終了したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/exited",
+      "rules": [ { "location": "$.timestamp", "presence": "recommended" } ],
+      "dct:source": "4.8.8.3",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/exited" },
+          "object": { "id": "https://sspf.example.org/activities/course/1" },
+          "timestamp": "2025-07-07T09:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templates#not_complied",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "学習未実施" },
+      "definition": { "ja": "学習者が割り当てられた学習を実施しなかったことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/unexperienced",
+      "rules": [ { "location": "$.timestamp", "presence": "recommended" } ],
+      "dct:source": "4.8.8.4",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/unexperienced" },
+          "object": { "id": "https://sspf.example.org/activities/assignment/2" },
+          "timestamp": "2025-07-07T10:00:00Z"
+        }
+      ]
+    },
+
+    /* ----- 単問クイズ ----- */
+    {
+      "id": "https://sspf.example.org/xapi/templates/quiz#start",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "単問解答開始" },
+      "definition": { "ja": "学習者が単一の設問への解答を開始したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/experienced",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/question",
+      "rules": [
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.object.definition.extensions[\"https://sspf.example.org/xapi/activityextension/strict\"]", "presence": "include" },
+        { "location": "$.result.extensions[\"https://sspf.example.org/xapi/resultextension/count\"]", "presence": "include" }
+      ],
+      "dct:source": "4.8.8.5",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/experienced" },
+          "object": {
+            "id": "https://sspf.example.org/activities/quiz/1/q/1",
+            "definition": {
+              "type": "https://sspf.example.org/xapi/activitytype/question",
+              "extensions": { "https://sspf.example.org/xapi/activityextension/strict": false }
+            }
+          },
+          "result": {
+            "extensions": { "https://sspf.example.org/xapi/resultextension/count": 1 }
+          },
+          "timestamp": "2025-07-07T10:05:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templates/quiz#finish",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "単問解答完了" },
+      "definition": { "ja": "学習者が単一の設問への解答を完了したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/answered",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/cmi.interaction",
+      "attachmentUsageType": "https://sspf.example.org/xapi/attachmentusagetype/supporting_media",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.response", "presence": "include" },
+        { "location": "$.result.completion", "presence": "include" },
+        { "location": "$.result.score.raw", "presence": "recommended" },
+        { "location": "$.result.extensions[\"https://sspf.example.org/xapi/resultextension/count\"]", "presence": "include" }
+      ],
+      "dct:source": "4.8.8.6",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/answered" },
+          "object": {
+            "id": "https://sspf.example.org/activities/quiz/1/q/1",
+            "definition": { "type": "http://adlnet.gov/expapi/activities/cmi.interaction" }
+          },
+          "result": {
+            "response": "choice_A",
+            "completion": true,
+            "score": { "raw": 1 },
+            "extensions": { "https://sspf.example.org/xapi/resultextension/count": 1 }
+          },
+          "timestamp": "2025-07-07T10:06:00Z"
+        }
+      ]
+    },
+
+    /* ----- 問題パッケージ ----- */
+    {
+      "id": "https://sspf.example.org/xapi/templates/quiz#start_package",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "問題パッケージ開始" },
+      "definition": { "ja": "学習者が問題パッケージ（テストや問題集）を開始したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/experienced",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/assessment",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.extensions[\"https://sspf.example.org/xapi/resultextension/count\"]", "presence": "include" },
+        { "location": "$.object.definition.extensions[\"https://sspf.example.org/xapi/activityextension/strict\"]", "presence": "include" }
+      ],
+      "dct:source": "4.8.8.7",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/experienced" },
+          "object": {
+            "id": "https://sspf.example.org/activities/quiz/1",
+            "definition": {
+              "type": "https://sspf.example.org/xapi/activitytype/assessment",
+              "extensions": { "https://sspf.example.org/xapi/activityextension/strict": true }
+            }
+          },
+          "result": {
+            "extensions": { "https://sspf.example.org/xapi/resultextension/count": 1 }
+          },
+          "timestamp": "2025-07-07T10:04:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templates/quiz#finish_package",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "問題パッケージ完了" },
+      "definition": { "ja": "学習者が問題パッケージ（テストや問題集）を完了したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/completed",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/assessment",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.score.raw", "presence": "recommended" },
+        { "location": "$.result.extensions[\"https://sspf.example.org/xapi/resultextension/criteriaScore\"]", "presence": "include" },
+        { "location": "$.object.definition.extensions[\"https://sspf.example.org/xapi/activityextension/strict\"]", "presence": "include" },
+        { "location": "$.result.completion", "presence": "include" }
+      ],
+      "dct:source": "4.8.8.8",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/completed" },
+          "object": {
+            "id": "https://sspf.example.org/activities/quiz/1",
+            "definition": {
+              "type": "https://sspf.example.org/xapi/activitytype/assessment",
+              "extensions": { "https://sspf.example.org/xapi/activityextension/strict": true }
+            }
+          },
+          "result": {
+            "score": { "raw": 85 },
+            "completion": true,
+            "extensions": {
+              "https://sspf.example.org/xapi/resultextension/criteriaScore": { "criterion": "知識・理解", "raw": 45, "max": 50 }
+            }
+          },
+          "timestamp": "2025-07-07T10:25:00Z"
+        }
+      ]
+    },
+
+    /* ----- 採点 ----- */
+    {
+      "id": "https://sspf.example.org/xapi/templates/quiz#scoring",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "採点" },
+      "definition": { "ja": "指導者などが学習者の解答を採点したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/scoring",
+      "objectStatementRefTemplate": [
+        "https://sspf.example.org/xapi/templates/quiz#finish",
+        "https://sspf.example.org/xapi/templates/quiz#finish_package"
+      ],
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.duration", "presence": "include" },
+        { "location": "$.result.score.raw", "presence": "recommended" },
+        { "location": "$.result.extensions[\"https://sspf.example.org/xapi/resultextension/criteriaScore\"]", "presence": "include" }
+      ],
+      "dct:source": "4.8.8.9",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:teacher@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/scoring" },
+          "object": {
+            "objectType": "StatementRef",
+            "id": "a2c8ab88-71e1-469f-81c8-738c192c1a2e"
+          },
+          "result": {
+            "duration": "PT5M",
+            "score": { "raw": 85 },
+            "extensions": {
+              "https://sspf.example.org/xapi/resultextension/criteriaScore": { "criterion": "思考・判断", "raw": 40, "max": 50 }
+            }
+          },
+          "timestamp": "2025-07-07T14:00:00Z"
+        }
+      ]
+    },
+
+    /* ----- アンケート ----- */
+    {
+      "id": "https://sspf.example.org/xapi/templates/survey#answer",
+      "type": "StatementTemplate",
+      "inScheme": "https://sspf.example.org/xapi/v1.0",
+      "prefLabel": { "ja": "アンケート回答完了" },
+      "definition": { "ja": "学習者がアンケートへの回答を完了したことを示す。" },
+      "verb": "https://sspf.example.org/xapi/verbs/answered",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/survey",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.response", "presence": "include" },
+        { "location": "$.result.completion", "presence": "include" },
+        { "location": "$.result.duration", "presence": "include" }
+      ],
+      "dct:source": "4.8.8.10",
+      "example": [
+        {
+          "actor": { "mbox": "mailto:test@example.com" },
+          "verb": { "id": "https://sspf.example.org/xapi/verbs/answered" },
+          "object": {
+            "id": "https://sspf.example.org/activities/survey/1",
+            "definition": { "type": "https://sspf.example.org/xapi/activitytype/survey" }
+          },
+          "result": {
+            "response": "大変満足",
+            "completion": true,
+            "duration": "PT3M15S"
+          },
+          "timestamp": "2025-07-07T10:30:00Z"
+        }
+      ]
+    }
+  ]
+}

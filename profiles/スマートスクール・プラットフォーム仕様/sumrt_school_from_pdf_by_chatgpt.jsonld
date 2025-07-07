@@ -1,0 +1,149 @@
+{
+  "@context": [
+    "https://w3id.org/xapi/profiles/context",
+    { "prefLabel": { "@container": "@language" } }
+  ],
+  "id": "http://sspf.example.org/xapi/",
+  "type": "Profile",
+  "conformsTo": "https://w3id.org/xapi/profiles#1.0",
+  "prefLabel": {
+    "jp": "スマートスクールプラットフォームプロファイル"
+  },
+  "definition": {
+    "jp": "スマートスクール・プラットフォームで交換される学習履歴データを共通化するための xAPI プロファイル。"
+  },
+  "author": {
+    "name": "総務省 スマートスクール・プラットフォーム WG"
+  },
+
+  "templates": [
+    {
+      "id": "https://sspf.example.org/xapi/templetes#launch",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "学習アプリケーション起動" },
+      "verb": "https://sspf.example.org/xapi/verbs/launch",
+      "rules": [
+        { "location": "$.timestamp", "presence": "recommended" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes#start_learning",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "学習開始" },
+      "verb": "https://sspf.example.org/xapi/verbs/experienced",
+      "rules": [
+        { "location": "$.timestamp", "presence": "recommended" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes#finish_learning",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "学習終了" },
+      "verb": "https://sspf.example.org/xapi/verbs/exited",
+      "rules": [
+        { "location": "$.timestamp", "presence": "recommended" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes#not_complied",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "学習未実施" },
+      "verb": "https://sspf.example.org/xapi/verbs/unexperienced",
+      "rules": [
+        { "location": "$.timestamp", "presence": "recommended" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes/quiz#start",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "単問解答開始" },
+      "verb": "https://sspf.example.org/xapi/verbs/experienced",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/question",
+      "rules": [
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.object.definition.extensions[\"strict\"]", "presence": "include" },
+        { "location": "$.result.extensions[\"count\"]", "presence": "include" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes/quiz#finish",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "単問解答完了" },
+      "verb": "https://sspf.example.org/xapi/verbs/answered",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/cmi.interaction",
+      "attachmentUsageType": "https://sspf.example.org/xapi/attachementusagetype/upporting_media",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.object.objectType", "presence": "include" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.context.contextExtensions.scene.lifescene", "presence": "include" },
+        { "location": "$.result.response", "presence": "include" },
+        { "location": "$.result.completion", "presence": "include" },
+        { "location": "$.result.score.scaled", "presence": "recommended" },
+        { "location": "$.result.score.raw", "presence": "recommended" },
+        { "location": "$.result.extensions[\"count\"]", "presence": "include" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes/quiz#start_package",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "問題パッケージ開始" },
+      "verb": "https://sspf.example.org/xapi/verbs/experienced",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/assessment",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.extensions[\"count\"]", "presence": "include" },
+        { "location": "$.object.definition.extensions[\"strict\"]", "presence": "include" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes/quiz#finish_package",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "問題パッケージ完了" },
+      "verb": "http://adlnet.gov/expapi/verbs/completed",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/assessment",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.score.raw", "presence": "recommended" },
+        { "location": "$.result.extensions[\"criteriaScore\"]", "presence": "include" },
+        { "location": "$.object.definition.extensions[\"strict\"]", "presence": "include" },
+        { "location": "$.result.completion", "presence": "include" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes/quiz#scoring",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "採点" },
+      "verb": "https://sspf.example.org/xapi/verbs/scoring",
+      "objectStatementRefTemplate": [
+        "https://sspf.example.org/xapi/templetes/quiz#finish",
+        "https://sspf.example.org/xapi/templetes/quiz#finish_package"
+      ],
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.object.objectType", "presence": "recommended" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.duration", "presence": "include" },
+        { "location": "$.result.score.raw", "presence": "recommended" },
+        { "location": "$.result.extensions[\"criteriaScore\"]", "presence": "include" }
+      ]
+    },
+    {
+      "id": "https://sspf.example.org/xapi/templetes/survey#answer",
+      "type": "StatementTemplate",
+      "prefLabel": { "jp": "アンケート回答完了" },
+      "verb": "https://sspf.example.org/xapi/verbs/answered",
+      "objectActivityType": "https://sspf.example.org/xapi/activitytype/survey",
+      "rules": [
+        { "location": "$.object.id", "presence": "recommended" },
+        { "location": "$.object.objectType", "presence": "include" },
+        { "location": "$.timestamp", "presence": "recommended" },
+        { "location": "$.result.response", "presence": "include" },
+        { "location": "$.result.completion", "presence": "include" },
+        { "location": "$.result.duration", "presence": "include" }
+      ]
+    }
+  ]
+}
