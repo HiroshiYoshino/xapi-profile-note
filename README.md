@@ -103,24 +103,24 @@ https://ictconnect21.jp/jimukyoku_2505/
 
 1.  **コア・アクティビティ・プロファイル（最優先）**
     *   **内容:** 学習の開始から終了、結果までを記録する、最も基本的で汎用的なテンプレート群です。
-        *   **起動・終了:** `launched`, `terminated` (例: [cmi5](c:\tools\github\xapi-profile-note\profiles\cmi5\cmi5_with_additinal_properties_by_github_copilot.jsonld.jsonld), [CBTシステムの拡充活用推進](c:\tools\github\xapi-profile-note\profiles\CBTシステムの拡充活用推進\cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld))
-        *   **完了・結果:** `completed`, `passed`, `failed` (例: [cmi5](c:\tools\github\xapi-profile-note\profiles\cmi5\cmi5_with_additinal_properties_by_github_copilot.jsonld.jsonld))
-        *   **閲覧:** `viewed`, `accessed` (例: [gaia-x-dases/xapi-lms](c:\tools\github\xapi-profile-note\profiles\gaia-x-dases\xapi-lms\xapi-lmd_profiles_with_additinal_properties_by_github_copilot.jsonld.jsonld))
+        *   **起動・終了:** `launched`, `terminated` (例: [cmi5](./profiles/cmi5/cmi5_with_additinal_properties_by_github_copilot.jsonld.jsonld), [CBTシステムの拡充活用推進](./profiles/CBTシステムの拡充活用推進/cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld))
+        *   **完了・結果:** `completed`, `passed`, `failed` (例: [cmi5](./profiles/cmi5/cmi5_with_additinal_properties_by_github_copilot.jsonld.jsonld))
+        *   **閲覧:** `viewed`, `accessed` (例: [gaia-x-dases/xapi-lms](./profiles/gaia-x-dases/xapi-lms/xapi-lmd_profiles_with_additinal_properties_by_github_copilot.jsonld.jsonld))
     *   **理由:** これらはツールや教科を問わず、ほぼ全ての学習シーンで発生する活動です。最初に標準化することで、異なるツール間の学習活動を横断的に把握する基盤を早期に構築できます。
 
 2.  **アセスメント・プロファイル**
     *   **内容:** クイズやテスト、課題提出など、学習評価に関連するテンプレート群です。
-        *   **試行・解答:** `attempted`, `answered` (例: [CBTシステムの拡充活用推進](c:\tools\github\xapi-profile-note\profiles\CBTシステムの拡充活用推進\cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld), [スマートスクール・プラットフォーム仕様](c:\tools\github\xapi-profile-note\profiles\スマートスクール・プラットフォーム仕様\sumrt_school_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld))
-        *   **提出:** `submitted` (例: [CBTシステムの拡充活用推進](c:\tools\github\xapi-profile-note\profiles\CBTシステムの拡充活用推進\cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld))
+        *   **試行・解答:** `attempted`, `answered` (例: [CBTシステムの拡充活用推進](./profiles/CBTシステムの拡充活用推進/cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld), [スマートスクール・プラットフォーム仕様](./profiles/スマートスクール・プラットフォーム仕様/sumrt_school_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld))
+        *   **提出:** `submitted` (例: [CBTシステムの拡充活用推進](./profiles/CBTシステムの拡充活用推進/cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld))
     *   **理由:** 学習効果の測定は、データ活用の中心的な目的の一つです。解答データ（正誤、回答内容、スコアなど）の形式を標準化することは、学習者の理解度を正確に把握し、個別指導や教材改善に繋げる上で極めて重要です。
 
 3.  **デジタル教材インタラクション・プロファイル**
     *   **内容:** 動画やデジタル教科書など、特定のメディアとのインタラクションを記録するテンプレート群です。
         *   **動画操作:** `played`, `paused`, `seeked` (ADLの[Video Profile](https://github.com/adlnet/xapi-authored-profiles/blob/master/video/v1.0.2/video.jsonld)が参考になります)
-        *   **アノテーション:** `noted`, `highlighted` (例: [CBTシステムの拡充活用推進](c:\tools\github\xapi-profile-note\profiles\CBTシステムの拡充活用推進\cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld))
+        *   **アノテーション:** `noted`, `highlighted` (例: [CBTシステムの拡充活用推進](./profiles/CBTシステムの拡充活用推進/cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld))
     *   **理由:** GIGAスクール構想によりデジタル教材の利用が拡大する中、学習者がコンテンツのどこに注目し、どのように思考したか（マーカーやメモなど）を記録することは、学習プロセスを深く理解するために不可欠です。
 
-これらのプロファイルを策定する際は、[cmi5](c:\tools\github\xapi-profile-note\profiles\cmi5\cmi5_with_additinal_properties_by_github_copilot.jsonld.jsonld)のような国際標準や、[CBTシステムの拡充活用推進](c:\tools\github\xapi-profile-note\profiles\CBTシステムの拡充活用推進\cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld)や[令和6年度スタディログの活用に関する調査研究](c:\tools\github\xapi-profile-note\profiles\令和6年度スタディログの活用に関する調査研究\r6_studylog_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld)といった国内の先行事例を参考に、日本の教育実態に即した形で議論を進めることが成功の鍵となると考えられます。
+これらのプロファイルを策定する際は、[cmi5](./profiles/cmi5/cmi5_with_additinal_properties_by_github_copilot.jsonld.jsonld)のような国際標準や、[CBTシステムの拡充活用推進](./profiles/CBTシステムの拡充活用推進/cbt_improvement_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld.jsonld)や[令和6年度スタディログの活用に関する調査研究](./profiles/令和6年度スタディログの活用に関する調査研究/r6_studylog_from_pdf_by_chatgpt_with_additinal_properties_by_github_copilot.jsonld)といった国内の先行事例を参考に、日本の教育実態に即した形で議論を進めることが成功の鍵となると考えられます。
 
   
 # xAPI Profileの活用事例について  
