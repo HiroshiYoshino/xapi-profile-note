@@ -32,7 +32,7 @@ https://adlnet.github.io/xapi-profiles/xapi-profiles-about.html
 ***注意:*** *バージョンやURLは変更される可能性があるため、利用時は各プロファイルの公式な仕様をご確認ください。*
 
 ### [1.1. cmi5](https://github.com/AICC/CMI-5_Spec_Current)  
-前述の既存プロファイルと一部重複するが、LMS/eポータルのxAPI検討に必要な可能性があるため、以下に公開されたjson-ldに対して生成AIで補足情報を追加したxAPI Profileを配置  
+前述の既存プロファイルと一部重複するが、LMS/eポータルのxAPI検討に必要な可能性があるため、xAPI Profileとして公式されているjson-ldに対して、cmi-5のspecの内容等踏まえて生成AIで補足情報を追加したxAPI Profileを以下に配置  
 [Link](./profiles/cmi5/cmi5_with_additinal_properties_by_github_copilot.jsonld.jsonld)
 
 ## [2. gaia-x-dases](https://github.com/gaia-x-dases)

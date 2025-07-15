@@ -1,0 +1,177 @@
+openapi: 3.0.3
+info:
+  title: cmi5 LMS-AU Communication API
+  version: '1.0.0'
+  description: |
+    cmi5におけるLMSとAU間の通信で利用されるxAPIエンドポイントのOpenAPI定義
+
+servers:
+  - url: https://lrs.example.com/xAPI
+
+paths:
+  /statements:
+    get:
+      summary: ステートメントの取得
+      operationId: getStatements
+      parameters:
+        - in: query
+          name: agent
+          schema:
+            type: string
+          description: エージェント情報（JSON文字列）
+        - in: query
+          name: verb
+          schema:
+            type: string
+          description: 動詞ID
+        - in: query
+          name: activity
+          schema:
+            type: string
+          description: アクティビティID
+        - in: query
+          name: since
+          schema:
+            type: string
+            format: date-time
+          description: 取得開始日時
+      responses:
+        '200':
+          description: ステートメントリスト
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statements:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Statement'
+    post:
+      summary: ステートメントの送信
+      operationId: postStatement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Statement'
+      responses:
+        '200':
+          description: ステートメントIDリスト
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /activities:
+    get:
+      summary: アクティビティ情報の取得
+      operationId: getActivity
+      parameters:
+        - in: query
+          name: activityId
+          schema:
+            type: string
+          required: true
+          description: アクティビティID
+      responses:
+        '200':
+          description: アクティビティ情報
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+
+  /agents:
+    get:
+      summary: エージェント情報の取得
+      operationId: getAgent
+      parameters:
+        - in: query
+          name: agent
+          schema:
+            type: string
+          required: true
+          description: エージェント情報（JSON文字列）
+      responses:
+        '200':
+          description: エージェント情報
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+
+  /about:
+    get:
+      summary: LRS情報の取得
+      operationId: getAbout
+      responses:
+        '200':
+          description: LRS情報
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: array
+                    items:
+                      type: string
+
+components:
+  schemas:
+    Statement:
+      type: object
+      properties:
+        id:
+          type: string
+        actor:
+          $ref: '#/components/schemas/Agent'
+        verb:
+          type: object
+          properties:
+            id:
+              type: string
+            display:
+              type: object
+              additionalProperties:
+                type: string
+        object:
+          type: object
+        result:
+          type: object
+        context:
+          type: object
+        timestamp:
+          type: string
+          format: date-time
+    Activity:
+      type: object
+      properties:
+        id:
+          type: string
+        definition:
+          type: object
+    Agent:
+      type: object
+      properties:
+        objectType:
+          type: string
+        name:
+          type: string
+        mbox:
+          type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+security:
+  - basicAuth: []
+  - bearerAuth: []

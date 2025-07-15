@@ -52,25 +52,139 @@
       "type": "Verb",
       "definition": {
         "en": "Indicates that the learning activity requirements were met by means other than completing the activity. A waived statement is used to indicate that the activity may be skipped by the actor."
-      },
-      "prefLabel": {
+      },      "prefLabel": {
         "en": "waived"
       },
       "scopeNote": "This is an LMS generated statement. See section 9.3.7 of the cmi5 specification for details on statement usage."
+    },    {
+      "id": "http://adlnet.gov/expapi/verbs/launched",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "type": "Verb",
+      "definition": {
+        "en": "Indicates that the AU was launched by the LMS."
+      },
+      "prefLabel": {
+        "en": "launched"
+      },
+      "scopeNote": "This is an LMS generated statement used to indicate that the AU has been launched. See section 9.3.1 of the cmi5 specification for details on statement usage."
     },
     {
-      "id": "https://w3id.org/xapi/cmi5/activitytype/block",
+      "id": "http://adlnet.gov/expapi/verbs/initialized",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "type": "Verb",
+      "definition": {
+        "en": "An 'initialized' statement is used by the AU to indicate that it has been fully initialized. The 'initialized' statement MUST follow, within a reasonable period of time, the 'launched' statement created by the LMS."
+      },
+      "prefLabel": {
+        "en": "initialized"
+      },
+      "scopeNote": "This is an AU generated statement. The AU MUST use initialized in the first statement of any kind in the AU session. See section 9.3.2 of the cmi5 specification for details on statement usage."
+    },
+    {
+      "id": "http://adlnet.gov/expapi/verbs/completed",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "type": "Verb",
+      "definition": {
+        "en": "The verb indicates the learner viewed or did all of the relevant activities in an AU presentation."
+      },
+      "prefLabel": {
+        "en": "completed"
+      },
+      "scopeNote": "This is an AU generated statement. The AU MUST send a 'completed' statement when the learner has experienced all relevant material in an AU. See section 9.3.3 of the cmi5 specification for details on statement usage."
+    },
+    {
+      "id": "http://adlnet.gov/expapi/verbs/passed",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "type": "Verb",
+      "definition": {
+        "en": "The learner attempted and succeeded in a judged activity in the AU."
+      },
+      "prefLabel": {
+        "en": "passed"
+      },
+      "scopeNote": "This is an AU generated statement. The AU MUST send a statement containing the 'passed' verb when the learner has attempted and passed the AU. See section 9.3.4 of the cmi5 specification for details on statement usage."
+    },
+    {
+      "id": "http://adlnet.gov/expapi/verbs/failed",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "type": "Verb",
+      "definition": {
+        "en": "The learner attempted and failed in a judged activity in the AU."
+      },
+      "prefLabel": {
+        "en": "failed"
+      },
+      "scopeNote": "This is an AU generated statement. The AU MUST send a statement containing the 'failed' verb when the learner has attempted and failed the AU. See section 9.3.5 of the cmi5 specification for details on statement usage."
+    },
+    {
+      "id": "http://adlnet.gov/expapi/verbs/terminated",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "type": "Verb",
+      "definition": {
+        "en": "The verb 'Terminated' indicates that the AU was terminated by the Learner and that the AU will not be sending any more statements for the launch session."
+      },
+      "prefLabel": {
+        "en": "terminated"
+      },
+      "scopeNote": "This is an AU generated statement. The AU MUST send a statement containing the 'Terminated' verb. This statement MUST be the last statement of any kind sent by the AU in a session. See section 9.3.8 of the cmi5 specification for details on statement usage."
+    },{      "id": "https://w3id.org/xapi/cmi5/activitytype/block",
       "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
       "type": "ActivityType",
+      "exactMatch": [
+        "http://adlnet.gov/expapi/activities/lesson"
+      ],
       "definition": {
         "en": "A block is a grouping unit in a hiearchical (tree) structure representing a course with Assignable Units as the lowest descendant (leaves).  Each block must contain at least one Assignable Unit descendant.  Progress (completion/success) for each block is rolled up in to complete a higher level block."
       },
       "prefLabel": {
         "en": "block"
       },
-      "scopeNote": "See section 5.0 of the cmi5 specification for details."
-    },
-    {
+      "scopeNote": "See section 5.0 of the cmi5 specification for details.","example": [
+        {
+          "objectType": "Activity",
+          "id": "https://lms.example.com/course/mathematics/block/algebra",
+          "definition": {
+            "type": "https://w3id.org/xapi/cmi5/activitytype/block",
+            "name": {
+              "en": "Algebra Fundamentals Block"
+            },
+            "description": {
+              "en": "A block containing multiple assignable units covering algebra fundamentals including linear equations, quadratic equations, and graphing."
+            }
+          }
+        },
+        {
+          "comment": "Example of block used in contextActivities",
+          "actor": {
+            "objectType": "Agent",
+            "mbox": "mailto:learner@example.com"
+          },
+          "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/completed"
+          },
+          "object": {
+            "objectType": "Activity",
+            "id": "https://lms.example.com/au/algebra-unit-1"
+          },
+          "context": {
+            "contextActivities": {
+              "parent": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics/block/algebra",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/block",
+                    "name": {
+                      "en": "Algebra Fundamentals Block"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },    {
       "id": "https://w3id.org/xapi/cmi5/activitytype/course",
       "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
       "type": "ActivityType",
@@ -83,7 +197,54 @@
       "prefLabel": {
         "en": "course"
       },
-      "scopeNote": "This is used in an LMS generated 'Statisfied' statement.  See section 9.3.9 of the cmi5 specification for details on usage."
+      "scopeNote": "This is used in an LMS generated 'Statisfied' statement.  See section 9.3.9 of the cmi5 specification for details on usage.",      "example": [
+        {
+          "objectType": "Activity",
+          "id": "https://lms.example.com/course/mathematics-101",
+          "definition": {
+            "type": "https://w3id.org/xapi/cmi5/activitytype/course",
+            "name": {
+              "en": "Mathematics 101: Introduction to Algebra"
+            },
+            "description": {
+              "en": "A comprehensive course covering fundamental algebraic concepts including linear equations, polynomials, and graphing. Contains multiple blocks and assignable units."
+            }
+          }
+        },
+        {
+          "comment": "Example of course used in contextActivities for 'satisfied' statement",
+          "actor": {
+            "objectType": "Agent",
+            "mbox": "mailto:learner@example.com"
+          },
+          "verb": {
+            "id": "https://w3id.org/xapi/adl/verbs/satisfied"
+          },
+          "object": {
+            "objectType": "Activity",
+            "id": "https://lms.example.com/course/mathematics-101",
+            "definition": {
+              "type": "https://w3id.org/xapi/cmi5/activitytype/course",
+              "name": {
+                "en": "Mathematics 101: Introduction to Algebra"
+              }
+            }
+          },
+          "context": {
+            "contextActivities": {
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
     {
       "id": "https://w3id.org/xapi/cmi5/result/extensions/progress",
@@ -174,20 +335,33 @@
         "en": "'launchParameters' as provided in the LMS Launch Data for the AU plus registration"
       },
       "inlineSchema": "{ \"type\": \"string\" }",
-      "scopeNote": "This is used in an LMS generated 'Launched' statement.  See section 9.6.3.7 of the cmi5 specification for details on usage."
-    },
+      "scopeNote": "This is used in an LMS generated 'Launched' statement.  See section 9.6.3.7 of the cmi5 specification for details on usage."    },
     {
       "id": "https://w3id.org/xapi/cmi5/context/categories/moveon",
       "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
-      "type": "ActivityType",
+      "type": "Activity",
       "prefLabel": {
         "en": "move on"
       },
       "definition": {
-        "en": "If the 'moveOn' parameter is provided in the LMS.LaunchData (State API document) then this ActivityType must be present in cmi5 defined statements with a Result object that include either \"success\" or \"completion\" properties"
+        "en": "cmi5 defined statements with a Result object that include either 'success' or 'completion' properties MUST have an activity object with an ID of https://w3id.org/xapi/cmi5/context/categories/moveon in the category list of the contextActivities object."
       },
-      "inlineSchema": "{ \"enum\": [\"Passed\", \"Completed\", \"CompletedAndPassed\", \"CompletedOrPassed\", \"NotApplicable\"] }",
-      "scopeNote": "See section 9.6.2.2 of the cmi5 specification for details on usage."
+      "scopeNote": "See section 9.6.2.2 of the cmi5 specification for details on usage.",
+      "example": [
+        {
+          "objectType": "Activity",
+          "id": "https://w3id.org/xapi/cmi5/context/categories/moveon",
+          "definition": {
+            "type": "https://w3id.org/xapi/cmi5/context/categories/moveon",
+            "name": {
+              "en": "Move On Criteria"
+            },
+            "description": {
+              "en": "Defines the criteria that must be met for a learner to move on from this learning activity."
+            }
+          }
+        }
+      ]
     },
     {
       "id": "https://w3id.org/xapi/cmi5/context/extensions/moveon",
@@ -199,8 +373,20 @@
       "definition": {
         "en": "'moveOn' is provided in by the LMS in the Launched statement"
       },
-      "inlineSchema": "{ \"enum\": [\"Passed\", \"Completed\", \"CompletedAndPassed\", \"CompletedOrPassed\", \"NotApplicable\"] }",
-      "scopeNote": "See section 9.6.3.6 of the cmi5 specification for details on usage."
+      "inlineSchema": "{ \"enum\": [\"Passed\", \"Completed\", \"CompletedAndPassed\", \"CompletedOrPassed\", \"NotApplicable\"] }",      "scopeNote": "See section 9.6.3.6 of the cmi5 specification for details on usage."
+    },
+    {
+      "id": "https://w3id.org/xapi/cmi5/context/extensions/publisherid",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "type": "ContextExtension",
+      "prefLabel": {
+        "en": "publisher ID"
+      },
+      "definition": {
+        "en": "A unique identifier for the publisher of the course package, used to identify the organizational source of the content."
+      },
+      "inlineSchema": "{ \"type\": \"string\" }",
+      "scopeNote": "This extension is used to identify the publisher of the course package in AU statements. See section 9.6.3 of the cmi5 specification for details on usage."
     }
   ],
   "templates": [
@@ -210,11 +396,10 @@
       "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
       "prefLabel": {
         "en": "Launched"
-      },
-      "definition": {
+      },      "definition": {
         "en": "The LMS MUST issue this statement when it launches the AU. This statement is used to pass LMS-specific launch data to the AU."
       },
-      "verb": "https://w3id.org/xapi/adl/verbs/launched",
+      "verb": "http://adlnet.gov/expapi/verbs/launched",
       "rules": [
         {
           "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
@@ -234,9 +419,8 @@
           "actor": {
             "objectType": "Agent",
             "mbox": "mailto:learner@example.com"
-          },
-          "verb": {
-            "id": "https://w3id.org/xapi/adl/verbs/launched",
+          },          "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/launched",
             "display": {
               "en-US": "launched"
             }
@@ -275,10 +459,13 @@
       "definition": {
         "en": "The AU MUST issue this statement upon successful initialization and after it has received the 'Launched' statement from the LMS."
       },
-      "verb": "http://adlnet.gov/expapi/verbs/initialized",
-      "rules": [
+      "verb": "http://adlnet.gov/expapi/verbs/initialized",      "rules": [
         {
           "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping[?(@.definition.type=='https://w3id.org/xapi/cmi5/activitytype/course')]",
           "presence": "included"
         },
         {
@@ -297,8 +484,7 @@
             "display": {
               "en-US": "initialized"
             }
-          },
-          "object": {
+          },          "object": {
             "objectType": "Activity",
             "id": "https://lms.example.com/au/123"
           },
@@ -308,6 +494,15 @@
               "category": [
                 {
                   "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
                 }
               ]
             },
@@ -329,8 +524,7 @@
       "definition": {
         "en": "The AU MUST issue this statement when the learner has completed the AU. This statement indicates completion only, not success."
       },
-      "verb": "http://adlnet.gov/expapi/verbs/completed",
-      "rules": [
+      "verb": "http://adlnet.gov/expapi/verbs/completed",      "rules": [
         {
           "location": "$.result.completion",
           "presence": "included",
@@ -340,6 +534,14 @@
         },
         {
           "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/moveon')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping[?(@.definition.type=='https://w3id.org/xapi/cmi5/activitytype/course')]",
           "presence": "included"
         },
         {
@@ -362,17 +564,27 @@
           "object": {
             "objectType": "Activity",
             "id": "https://lms.example.com/au/123"
-          },
-          "result": {
+          },          "result": {
             "completion": true,
             "duration": "PT10M30S"
-          },
-          "context": {
+          },          "context": {
             "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
             "contextActivities": {
               "category": [
                 {
                   "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                },
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/moveon"
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
                 }
               ]
             },
@@ -394,8 +606,7 @@
       "definition": {
         "en": "The AU MUST issue this statement when the learner has passed the AU. This statement indicates success."
       },
-      "verb": "http://adlnet.gov/expapi/verbs/passed",
-      "rules": [
+      "verb": "http://adlnet.gov/expapi/verbs/passed",      "rules": [
         {
           "location": "$.result.success",
           "presence": "included",
@@ -409,6 +620,14 @@
         },
         {
           "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/moveon')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping[?(@.definition.type=='https://w3id.org/xapi/cmi5/activitytype/course')]",
           "presence": "included"
         },
         {
@@ -431,8 +650,7 @@
           "object": {
             "objectType": "Activity",
             "id": "https://lms.example.com/au/123"
-          },
-          "result": {
+          },          "result": {
             "success": true,
             "score": {
               "scaled": 0.9,
@@ -441,13 +659,24 @@
               "max": 100
             },
             "duration": "PT12M"
-          },
-          "context": {
+          },          "context": {
             "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
             "contextActivities": {
               "category": [
                 {
                   "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                },
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/moveon"
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
                 }
               ]
             },
@@ -469,8 +698,7 @@
       "definition": {
         "en": "The AU MUST issue this statement when the learner has failed the AU. This statement indicates failure."
       },
-      "verb": "http://adlnet.gov/expapi/verbs/failed",
-      "rules": [
+      "verb": "http://adlnet.gov/expapi/verbs/failed",      "rules": [
         {
           "location": "$.result.success",
           "presence": "included",
@@ -484,6 +712,14 @@
         },
         {
           "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/moveon')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping[?(@.definition.type=='https://w3id.org/xapi/cmi5/activitytype/course')]",
           "presence": "included"
         },
         {
@@ -506,8 +742,7 @@
           "object": {
             "objectType": "Activity",
             "id": "https://lms.example.com/au/123"
-          },
-          "result": {
+          },          "result": {
             "success": false,
             "score": {
               "scaled": 0.6,
@@ -516,13 +751,24 @@
               "max": 100
             },
             "duration": "PT15M"
-          },
-          "context": {
+          },          "context": {
             "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
             "contextActivities": {
               "category": [
                 {
                   "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                },
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/moveon"
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
                 }
               ]
             },
@@ -544,14 +790,17 @@
       "definition": {
         "en": "The AU MUST issue this statement when it is terminating the session, either through learner action or by its own control."
       },
-      "verb": "http://adlnet.gov/expapi/verbs/terminated",
-      "rules": [
+      "verb": "http://adlnet.gov/expapi/verbs/terminated",      "rules": [
         {
           "location": "$.result.duration",
           "presence": "recommended"
         },
         {
           "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping[?(@.definition.type=='https://w3id.org/xapi/cmi5/activitytype/course')]",
           "presence": "included"
         },
         {
@@ -577,13 +826,21 @@
           },
           "result": {
             "duration": "PT15M30S"
-          },
-          "context": {
+          },          "context": {
             "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
             "contextActivities": {
               "category": [
                 {
                   "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
                 }
               ]
             },
@@ -592,6 +849,353 @@
             }
           },
           "timestamp": "2025-07-07T09:15:35Z"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/xapi/cmi5/templates/abandoned",
+      "type": "StatementTemplate",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "prefLabel": {
+        "en": "Abandoned"
+      },
+      "definition": {
+        "en": "The LMS MUST issue this statement when an AU session is abnormally terminated. This is typically issued when a new session is launched with the same registration."
+      },
+      "verb": "https://w3id.org/xapi/adl/verbs/abandoned",
+      "rules": [
+        {
+          "location": "$.result.duration",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.extensions['https://w3id.org/xapi/cmi5/context/extensions/sessionid']",
+          "presence": "included"
+        }
+      ],
+      "example": [
+        {
+          "actor": {
+            "objectType": "Agent",
+            "mbox": "mailto:learner@example.com"
+          },
+          "verb": {
+            "id": "https://w3id.org/xapi/adl/verbs/abandoned",
+            "display": {
+              "en-US": "abandoned"
+            }
+          },
+          "object": {
+            "objectType": "Activity",
+            "id": "https://lms.example.com/au/123"
+          },
+          "result": {
+            "duration": "PT8M"
+          },
+          "context": {
+            "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
+            "contextActivities": {
+              "category": [
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                }
+              ],
+              "parent": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics/block/algebra",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/block"
+                  }
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
+                }
+              ]
+            },
+            "extensions": {
+              "https://w3id.org/xapi/cmi5/context/extensions/sessionid": "b88e7391-5a5c-4b09-9389-27e3933f5981"
+            }
+          },
+          "timestamp": "2025-07-07T09:08:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/xapi/cmi5/templates/waived",
+      "type": "StatementTemplate",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "prefLabel": {
+        "en": "Waived"
+      },
+      "definition": {
+        "en": "The LMS MUST issue this statement when it determines that AU requirements were met by means other than moveOn criteria. This statement MUST include a reason extension."
+      },
+      "verb": "https://w3id.org/xapi/adl/verbs/waived",
+      "rules": [
+        {
+          "location": "$.result.success",
+          "presence": "included",
+          "all": [
+            true
+          ]
+        },
+        {
+          "location": "$.result.completion",
+          "presence": "included",
+          "all": [
+            true
+          ]
+        },        {
+          "location": "$.result.extensions['https://w3id.org/xapi/cmi5/result/extensions/reason']",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/moveon')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping[?(@.definition.type=='https://w3id.org/xapi/cmi5/activitytype/course')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.extensions['https://w3id.org/xapi/cmi5/context/extensions/sessionid']",
+          "presence": "included"
+        }
+      ],
+      "example": [
+        {
+          "actor": {
+            "objectType": "Agent",
+            "mbox": "mailto:learner@example.com"
+          },
+          "verb": {
+            "id": "https://w3id.org/xapi/adl/verbs/waived",
+            "display": {
+              "en-US": "waived"
+            }
+          },
+          "object": {
+            "objectType": "Activity",
+            "id": "https://lms.example.com/au/advanced-algebra"
+          },          "result": {
+            "success": true,
+            "completion": true,
+            "extensions": {
+              "https://w3id.org/xapi/cmi5/result/extensions/reason": "Tested Out"
+            }
+          },
+          "context": {
+            "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
+            "contextActivities": {
+              "category": [
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                },
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/moveon"
+                }
+              ],
+              "parent": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics/block/advanced",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/block"
+                  }
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
+                }
+              ]
+            },
+            "extensions": {
+              "https://w3id.org/xapi/cmi5/context/extensions/sessionid": "unique-waived-session-123"
+            }
+          },
+          "timestamp": "2025-07-07T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/xapi/cmi5/templates/satisfied-block",
+      "type": "StatementTemplate",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "prefLabel": {
+        "en": "Satisfied Block"
+      },
+      "definition": {
+        "en": "The LMS MUST issue this statement when the learner has met the moveOn criteria of all AUs in a block."
+      },
+      "verb": "https://w3id.org/xapi/adl/verbs/satisfied",
+      "rules": [
+        {
+          "location": "$.object.definition.type",
+          "presence": "included",
+          "all": [
+            "https://w3id.org/xapi/cmi5/activitytype/block"
+          ]
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.extensions['https://w3id.org/xapi/cmi5/context/extensions/sessionid']",
+          "presence": "included"
+        }
+      ],
+      "example": [
+        {
+          "actor": {
+            "objectType": "Agent",
+            "mbox": "mailto:learner@example.com"
+          },
+          "verb": {
+            "id": "https://w3id.org/xapi/adl/verbs/satisfied",
+            "display": {
+              "en-US": "satisfied"
+            }
+          },
+          "object": {
+            "objectType": "Activity",
+            "id": "https://lms.example.com/course/mathematics/block/algebra",
+            "definition": {
+              "type": "https://w3id.org/xapi/cmi5/activitytype/block",
+              "name": {
+                "en": "Algebra Fundamentals Block"
+              },
+              "description": {
+                "en": "A block containing multiple assignable units covering algebra fundamentals."
+              }
+            }
+          },
+          "context": {
+            "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
+            "contextActivities": {
+              "category": [
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
+                }
+              ]
+            },
+            "extensions": {
+              "https://w3id.org/xapi/cmi5/context/extensions/sessionid": "b88e7391-5a5c-4b09-9389-27e3933f5981"
+            }
+          },
+          "timestamp": "2025-07-07T09:15:00Z"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/xapi/cmi5/templates/satisfied-course",
+      "type": "StatementTemplate",
+      "inScheme": "https://w3id.org/xapi/cmi5/context/categories/cmi5/v1.0",
+      "prefLabel": {
+        "en": "Satisfied Course"
+      },
+      "definition": {
+        "en": "The LMS MUST issue this statement when the learner has met the moveOn criteria for all AUs in a course."
+      },
+      "verb": "https://w3id.org/xapi/adl/verbs/satisfied",
+      "rules": [
+        {
+          "location": "$.object.definition.type",
+          "presence": "included",
+          "all": [
+            "https://w3id.org/xapi/cmi5/activitytype/course"
+          ]
+        },
+        {
+          "location": "$.context.contextActivities.category[?(@.id=='https://w3id.org/xapi/cmi5/context/categories/cmi5')]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping[?(@.id==$.object.id)]",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.extensions['https://w3id.org/xapi/cmi5/context/extensions/sessionid']",
+          "presence": "included"
+        }
+      ],
+      "example": [
+        {
+          "actor": {
+            "objectType": "Agent",
+            "mbox": "mailto:learner@example.com"
+          },
+          "verb": {
+            "id": "https://w3id.org/xapi/adl/verbs/satisfied",
+            "display": {
+              "en-US": "satisfied"
+            }
+          },
+          "object": {
+            "objectType": "Activity",
+            "id": "https://lms.example.com/course/mathematics-101",
+            "definition": {
+              "type": "https://w3id.org/xapi/cmi5/activitytype/course",
+              "name": {
+                "en": "Mathematics 101: Introduction to Algebra"
+              },
+              "description": {
+                "en": "A comprehensive course covering fundamental algebraic concepts."
+              }
+            }
+          },
+          "context": {
+            "registration": "c2d6acc7-224a-4428-80e1-3243c8c13913",
+            "contextActivities": {
+              "category": [
+                {
+                  "id": "https://w3id.org/xapi/cmi5/context/categories/cmi5"
+                }
+              ],
+              "grouping": [
+                {
+                  "objectType": "Activity",
+                  "id": "https://lms.example.com/course/mathematics-101",
+                  "definition": {
+                    "type": "https://w3id.org/xapi/cmi5/activitytype/course"
+                  }
+                }
+              ]
+            },
+            "extensions": {
+              "https://w3id.org/xapi/cmi5/context/extensions/sessionid": "unique-course-satisfied-456"
+            }
+          },
+          "timestamp": "2025-07-07T09:20:00Z"
         }
       ]
     }
