@@ -1,0 +1,760 @@
+{
+  "@context": "https://w3id.org/xapi/profiles/context",
+  "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+  "type": "Profile",
+  "conformsTo": "https://w3id.org/xapi/profiles#1.0",
+  "prefLabel": {
+    "ja": "MEXCBT xAPIプロファイル",
+    "en": "MEXCBT xAPI Profile"
+  },
+  "definition": {
+    "ja": "文部科学省のCBTシステム「MEXCBT」から提供されるスタディ・ログのxAPIステートメントに関する仕様を定義するプロファイルです。これは、ICT CONNECT 21発行の「初等中等教育におけるシステム間連携のための相互運用標準モデル」に基づいています。",
+    "en": "This profile defines the specification for xAPI statements of study logs provided by MEXCBT (CBT system by MEXT). This is based on the 'Interoperability Standard Model for System Collaboration in Primary and Secondary Education' published by ICT CONNECT 21."
+  },
+  "author": {
+    "type": "Organization",
+    "name": "一般社団法人 ICT CONNECT 21"
+  },
+  "versions": [
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1.2.0",
+      "generatedAtTime": "2025-08-12T05:00:00Z",
+      "wasRevisionOf": [
+        "https://ictconnect21.jp/xapi/profiles/mexcbt/v1.1.0"
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "http://adlnet.gov/expapi/verbs/attempted",
+      "type": "Verb",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "試行開始",
+        "en": "attempted"
+      },
+      "definition": {
+        "ja": "学習者がテスト（評価活動）を開始したことを示します。",
+        "en": "Indicates that the learner has started a test (assessment activity)."
+      }
+    },
+    {
+      "id": "http://adlnet.gov/expapi/verbs/completed",
+      "type": "Verb",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "完了",
+        "en": "completed"
+      },
+      "definition": {
+        "ja": "学習者がテスト（評価活動）を完了したことを示します。結果には合否が含まれます。",
+        "en": "Indicates that the learner has completed a test (assessment activity). The result includes success status."
+      }
+    },
+    {
+      "id": "http://adlnet.gov/expapi/verbs/answered",
+      "type": "Verb",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "解答",
+        "en": "answered"
+      },
+      "definition": {
+        "ja": "学習者が問題またはインタラクションに解答したことを示します。",
+        "en": "Indicates that the learner has answered a question or an interaction."
+      }
+    },
+    {
+      "id": "http://id.tincanapi.com/verb/viewed",
+      "type": "Verb",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "閲覧",
+        "en": "viewed"
+      },
+      "definition": {
+        "ja": "学習者が特定のページやリソースを閲覧したことを示します。",
+        "en": "Indicates that the learner has viewed a specific page or resource."
+      }
+    },
+    {
+      "id": "http://adlnet.gov/expapi/activities/assessment",
+      "type": "ActivityType",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "評価活動",
+        "en": "Assessment"
+      },
+      "definition": {
+        "ja": "テスト全体のような、一連の評価活動を表します。",
+        "en": "Represents a set of assessment activities, such as an entire test."
+      }
+    },
+    {
+      "id": "http://adlnet.gov/expapi/activities/question",
+      "type": "ActivityType",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "問題",
+        "en": "Question"
+      },
+      "definition": {
+        "ja": "複数のインタラクションを含む、一つの問題を指します。",
+        "en": "Refers to a single question that may contain multiple interactions."
+      }
+    },
+    {
+      "id": "http://adlnet.gov/expapi/activities/cmi.interaction",
+      "type": "ActivityType",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "インタラクション",
+        "en": "Interaction"
+      },
+      "definition": {
+        "ja": "選択式や入力式など、学習者が直接操作する個々の解答要素を指します。",
+        "en": "Refers to an individual answer component that a learner directly interacts with, such as a choice or a fill-in."
+      }
+    },
+    {
+      "id": "http://activitystrea.ms/schema/1.0/page",
+      "type": "ActivityType",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "ページ",
+        "en": "Page"
+      },
+      "definition": {
+        "ja": "テスト内の特定のページを指します。",
+        "en": "Refers to a specific page within a test."
+      }
+    },
+    {
+      "id": "https://mexcbt.mext.go.jp/deliveryId",
+      "type": "ContextExtension",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "配信ID",
+        "en": "Delivery ID"
+      },
+      "definition": {
+        "ja": "テスト配信を一意に識別するためのID。",
+        "en": "An ID to uniquely identify the test delivery."
+      }
+    },
+    {
+      "id": "https://mexcbt.mext.go.jp/scoringType",
+      "type": "ResultExtension",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "採点形式",
+        "en": "Scoring Type"
+      },
+      "definition": {
+        "ja": "採点の形式（例：'auto'）を示します。",
+        "en": "Indicates the type of scoring (e.g., 'auto')."
+      }
+    }
+  ],
+  "templates": [
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/attempted-assessment",
+      "type": "StatementTemplate",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "評価活動の試行開始",
+        "en": "Attempted Assessment"
+      },
+      "definition": {
+        "ja": "学習者がテスト（評価活動）を開始したことを示すステートメントテンプレート。",
+        "en": "Statement template indicating that the learner has started a test (assessment activity)."
+      },
+      "verb": "http://adlnet.gov/expapi/verbs/attempted",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/assessment",
+      "rules": [
+        {
+          "location": "$.context.platform",
+          "presence": "included",
+          "scopeNote": {
+            "ja": "値は 'MEXCBT' であるべきです。",
+            "en": "The value should be 'MEXCBT'."
+          }
+        },
+        {
+          "location": "$.context.extensions['https://mexcbt.mext.go.jp/deliveryId']",
+          "presence": "included",
+          "scopeNote": {
+            "ja": "学習者が実際に受けた1つのテストセッション(問題セット)を指す。",
+            "en": "Refers to a single test session (problem set) that the learner actually took."
+          }
+        },
+        {
+          "location": "$.context.contextActivities.grouping",
+          "presence": "included",
+          "scopeNote": {
+            "ja": "1つのテストセッション(問題セット)の1回の受検に対して1つidが生成され割り当てられる。",
+            "en": "A single ID is generated and assigned for one test session (problem set) for each test attempt."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/attempted-assessment#example-1",
+          "object": {
+            "version": "1.0.0",
+            "id": "b2d52f2c-cc4d-42d0-bd9e-78329b1ee00f",
+            "actor": {
+              "objectType": "Agent",
+              "account": {
+                "homePage": "https://example.platform.jp",
+                "name": "1fcdd088-66fc-11ec-b362-ebfd340b9cee"
+              }
+            },
+            "verb": {
+              "id": "http://adlnet.gov/expapi/verbs/attempted",
+              "display": {
+                "en": "attempted"
+              }
+            },
+            "object": {
+              "objectType": "Activity",
+              "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045f5e345c32796458b2f60e7cedf2",
+              "definition": {
+                "name": {
+                  "ja-jp": "【C】テスト用問題(検定)"
+                },
+                "type": "http://adlnet.gov/expapi/activities/assessment"
+              }
+            },
+            "context": {
+              "platform": "MEXCBT",
+              "language": "en",
+              "extensions": {
+                "https://mexcbt.mext.go.jp/deliveryId": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045f5e345c32796458b2f60e7cedf2"
+              },
+              "contextActivities": {
+                "grouping": [
+                  {
+                    "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622047cf0c83a3271d53c5b870b44b723"
+                  }
+                ]
+              }
+            },
+            "timestamp": "2022-03-03T04:45:03.051+00:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/completed-assessment",
+      "type": "StatementTemplate",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "評価活動の完了",
+        "en": "Completed Assessment"
+      },
+      "definition": {
+        "ja": "学習者がテスト（評価活動）を完了したことを示すステートメントテンプレート。",
+        "en": "Statement template indicating that the learner has completed a test (assessment activity)."
+      },
+      "verb": "http://adlnet.gov/expapi/verbs/completed",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/assessment",
+      "rules": [
+        {
+          "location": "$.result.success",
+          "presence": "included"
+        },
+        {
+          "location": "$.result.completion",
+          "presence": "included",
+          "scopeNote": {
+            "ja": "値は true であるべきです。",
+            "en": "The value should be true."
+          }
+        },
+        {
+          "location": "$.result.score",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.platform",
+          "presence": "included",
+          "scopeNote": {
+            "ja": "値は 'MEXCBT' であるべきです。",
+            "en": "The value should be 'MEXCBT'."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/completed-assessment#example-1",
+          "object": {
+            "version": "1.0.0",
+            "id": "b1c0a4c4-0248-4bcf-9b7a-7f6fdb7124fa",
+            "actor": {
+              "objectType": "Agent",
+              "account": {
+                "homePage": "https://example.platform.jp ",
+                "name": "1fcdd088-66fc-11ec-b362-ebfd340b9cee"
+              }
+            },
+            "verb": {
+              "id": "http://adlnet.gov/expapi/verbs/completed",
+              "display": {
+                "en": "completed"
+              }
+            },
+            "object": {
+              "objectType": "Activity",
+              "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045f5e345c32796458b2f60e7cedf2",
+              "definition": {
+                "name": {
+                  "ja-jp": "【C】テスト用問題(検定)"
+                },
+                "type": "http://adlnet.gov/expapi/activities/assessment"
+              }
+            },
+            "result": {
+              "success": false,
+              "completion": true,
+              "score": {
+                "scaled": 0.5,
+                "max": 10,
+                "raw": 5
+              }
+            },
+            "context": {
+              "platform": "MEXCBT",
+              "language": "en",
+              "extensions": {
+                "https://mexcbt.mext.go.jp/deliveryId": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045f5e345c32796458b2f60e7cedf2"
+              },
+              "contextActivities": {
+                "grouping": [
+                  {
+                    "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622047cf0c83a3271d53c5b870b44b723"
+                  }
+                ]
+              }
+            },
+            "timestamp": "2022-03-03T04:45:10.092+00:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-question",
+      "type": "StatementTemplate",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "問題への解答",
+        "en": "Answered Question"
+      },
+      "definition": {
+        "ja": "学習者が複数のインタラクションを含む可能性のある問題全体に解答したことを示すステートメントテンプレート（タイプ2で利用）。",
+        "en": "Statement template indicating that the learner has answered an entire question that may contain multiple interactions (Used in Type 2)."
+      },
+      "verb": "http://adlnet.gov/expapi/verbs/answered",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/question",
+      "rules": [
+        {
+          "location": "$.result.duration",
+          "presence": "included"
+        },
+        {
+          "location": "$.result.completion",
+          "presence": "included"
+        },
+        {
+          "location": "$.result.score",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.platform",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.extensions['https://mexcbt.mext.go.jp/deliveryId']",
+          "presence": "included"
+        },
+        {
+          "location": "$.context.contextActivities.grouping",
+          "presence": "included"
+        }
+      ],
+      "examples": [
+        {
+          "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-question#example-1",
+          "object": {
+            "version": "1.0.0",
+            "id": "fe4bd9d9-cd48-46ef-9582-a2a0fea3ea39",
+            "actor": {
+              "objectType": "Agent",
+              "account": {
+                "homePage": "https://example.platform.jp",
+                "name": "1fcdd088-66fc-11ec-b362-ebfd340b9cee"
+              }
+            },
+            "verb": {
+              "id": "http://adlnet.gov/expapi/verbs/answered",
+              "display": {
+                "en": "answered"
+              }
+            },
+            "object": {
+              "objectType": "Activity",
+              "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045e9b35ff31863602e0f0d3ced844",
+              "definition": {
+                "name": {
+                  "ja-jp": "大問 1"
+                },
+                "description": {
+                  "en": "A212000600022020246000020202000000.0"
+                },
+                "type": "http://adlnet.gov/expapi/activities/question"
+              }
+            },
+            "result": {
+              "duration": "PT0.54S",
+              "completion": true,
+              "extensions": {
+                "https://mexcbt.mext.go.jp/scoringType": "auto"
+              },
+              "score": {
+                "scaled": 0.1666666,
+                "max": 6,
+                "raw": 1
+              }
+            },
+            "context": {
+              "platform": "MEXCBT",
+              "language": "en",
+              "extensions": {
+                "https://mexcbt.mext.go.jp/deliveryId": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045f5e345c32796458b2f60e7cedf2"
+              },
+              "contextActivities": {
+                "grouping": [
+                  {
+                    "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622047cf0c83a3271d53c5b870b44b723"
+                  }
+                ]
+              }
+            },
+            "timestamp": "2022-03-03T04:45:08.067+00:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-interaction",
+      "type": "StatementTemplate",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "インタラクションへの解答",
+        "en": "Answered Interaction"
+      },
+      "definition": {
+        "ja": "学習者が個別のインタラクションに解答したことを示すステートメントテンプレート。",
+        "en": "Statement template indicating that the learner has answered an individual interaction."
+      },
+      "verb": "http://adlnet.gov/expapi/verbs/answered",
+      "objectActivityType": "http://adlnet.gov/expapi/activities/cmi.interaction",
+      "rules": [
+        {
+          "location": "$.result.response",
+          "presence": "included"
+        },
+        {
+          "location": "$.result.extensions['https://mexcbt.mext.go.jp/scoringType']",
+          "presence": "recommended"
+        },
+        {
+          "location": "$.context.contextActivities.parent",
+          "presence": "recommended",
+          "scopeNote": {
+            "ja": "タイプ2の場合に、親となる問題ステートメントを指します。",
+            "en": "In Type 2, this points to the parent question statement."
+          }
+        },
+        {
+          "location": "$.context.contextActivities.grouping",
+          "presence": "included"
+        }
+      ],
+      "examples": [
+        {
+          "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-interaction#example-1",
+          "name": "Type 1 item statement",
+          "object": {
+            "version": "1.0.0",
+            "id": "0d0e1dae-1110-4a7c-931d-dc0c41865f25",
+            "actor": {
+              "objectType": "Agent",
+              "account": {
+                "homePage": "https://example.platform.jp",
+                "name": "63c5d550-6700-11ec-b362-ebfd340b9cee"
+              }
+            },
+            "verb": {
+              "id": "http://adlnet.gov/expapi/verbs/answered",
+              "display": {
+                "en": "answered"
+              }
+            },
+            "object": {
+              "objectType": "Activity",
+              "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i621f46c56690729067c4db309ff440e01",
+              "definition": {
+                "name": {
+                  "ja-jp": "隣り合う 4 枚の正三角形の真ん中の 1 枚をあ(全国学力調査 平成 29 年度中学 3 年数学 B1(1) ig_h299mb-s01"
+                },
+                "description": {
+                  "en": "item-2.0, RESPONSE"
+                },
+                "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
+                "interactionType": "choice"
+              }
+            },
+            "result": {
+              "success": true,
+              "duration": "PT1.8S",
+              "completion": true,
+              "extensions": {
+                "https://mexcbt.mext.go.jp/scoringType": "auto"
+              },
+              "response": "choice_2",
+              "score": {
+                "scaled": 1,
+                "max": 1,
+                "raw": 1
+              }
+            },
+            "context": {
+              "platform": "MEXCBT",
+              "language": "en",
+              "extensions": {
+                "https://mexcbt.mext.go.jp/deliveryId": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i621f471fd7ad72854e7fef35d5aff7343"
+              },
+              "contextActivities": {
+                "grouping": [
+                  {
+                    "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i62204defe675629744da680e3b444f565"
+                  }
+                ]
+              }
+            },
+            "timestamp": "2022-03-03T05:11:15.355+00:00"
+          }
+        },
+        {
+          "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-interaction#example-2",
+          "name": "Type 2 interaction statement",
+          "object": {
+            "version": "1.0.0",
+            "id": "cab0d5f6-1f6e-4de3-b1de-4074d466280e",
+            "actor": {
+              "objectType": "Agent",
+              "account": {
+                "homePage": "https://example.platform.jp",
+                "name": "1fcdd088-66fc-11ec-b362-ebfd340b9cee"
+              }
+            },
+            "verb": {
+              "id": "http://adlnet.gov/expapi/verbs/answered",
+              "display": {
+                "en": "answered"
+              }
+            },
+            "object": {
+              "objectType": "Activity",
+              "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045e9b35ff31863602e0f0d3ced844?activity=Res_a420w014w02000000_04",
+              "definition": {
+                "name": {
+                  "ja-jp": "大問１"
+                },
+                "description": {
+                  "en": "Res_a420w014w02000000_04"
+                },
+                "type": "http://adlnet.gov/expapi/activities/cmi.interaction",
+                "interactionType": "fill-in"
+              }
+            },
+            "result": {
+              "success": true,
+              "response": "3"
+            },
+            "context": {
+              "platform": "MEXCBT",
+              "language": "en",
+              "extensions": {
+                "https://mexcbt.mext.go.jp/deliveryId": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045f5e345c32796458b2f60e7cedf2"
+              },
+              "contextActivities": {
+                "parent": [
+                  {
+                    "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045e9b35ff31863602e0f0d3ced844"
+                  }
+                ],
+                "grouping": [
+                  {
+                    "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622047cf0c83a3271d53c5b870b44b723"
+                  }
+                ]
+              }
+            },
+            "timestamp": "2022-03-03T04:45:08.067+00:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/viewed-page",
+      "type": "StatementTemplate",
+      "inScheme": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1",
+      "prefLabel": {
+        "ja": "ページの閲覧",
+        "en": "Viewed Page"
+      },
+      "definition": {
+        "ja": "学習者がテスト内のページを閲覧したことを示すステートメントテンプレート。",
+        "en": "Statement template indicating that the learner has viewed a page within the test."
+      },
+      "verb": "http://id.tincanapi.com/verb/viewed",
+      "objectActivityType": "http://activitystrea.ms/schema/1.0/page",
+      "rules": [
+        {
+          "location": "$.result.duration",
+          "presence": "recommended"
+        }
+      ],
+      "examples": [
+        {
+          "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/viewed-page#example-1",
+          "object": {
+            "version": "1.0.0",
+            "id": "472a2eec-2f36-422c-a5ad-9c543a48f55c",
+            "actor": {
+              "objectType": "Agent",
+              "account": {
+                "homePage": "https://example.platform.jp",
+                "name": "1fcdd088-66fc-11ec-b362-ebfd340b9cee"
+              }
+            },
+            "verb": {
+              "id": "http://id.tincanapi.com/verb/viewed",
+              "display": {
+                "en": "viewed"
+              }
+            },
+            "object": {
+              "objectType": "Activity",
+              "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045ef6a76e3186d714ed2f8cd340f8",
+              "definition": {
+                "name": {
+                  "ja-jp": "大問 2"
+                },
+                "type": "http://activitystrea.ms/schema/1.0/page"
+              }
+            },
+            "result": {
+              "duration": "PT0.48S",
+              "completion": true
+            },
+            "context": {
+              "platform": "MEXCBT",
+              "language": "en",
+              "extensions": {
+                "https://mexcbt.mext.go.jp/deliveryId": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622045f5e345c32796458b2f60e7cedf2"
+              },
+              "contextActivities": {
+                "grouping": [
+                  {
+                    "id": "http://cbt.mexcbt.mext.go.jp/tao.rdf#i622047cf0c83a3271d53c5b870b44b723"
+                  }
+                ]
+              }
+            },
+            "timestamp": "2022-03-03T04:45:08.852+00:00"
+          }
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/patterns/test-session",
+      "type": "Pattern",
+      "primary": true,
+      "prefLabel": {
+        "ja": "MEXCBTテストセッション",
+        "en": "MEXCBT Test Session"
+      },
+      "definition": {
+        "ja": "学習者によるテスト受験の開始から完了までの一連の行動を表すパターン。解答はタイプ1またはタイプ2のいずれかの形式をとり、ページの閲覧を伴うことがあります。",
+        "en": "A pattern representing a sequence of learner's actions from starting to completing a test. Answers can be in either Type 1 or Type 2 format, and may be accompanied by page views."
+      },
+      "sequence": [
+        "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/attempted-assessment",
+        {
+          "type": "Pattern",
+          "zeroOrMore": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/patterns/user-interaction"
+        },
+        {
+          "type": "Pattern",
+          "optional": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/completed-assessment"
+        }
+      ]
+    },
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/patterns/user-interaction",
+      "type": "Pattern",
+      "prefLabel": {
+        "ja": "ユーザーインタラクション",
+        "en": "User Interaction"
+      },
+      "definition": {
+        "ja": "テスト中の学習者の単一の行動を表すパターン。解答（タイプ1または2）またはページ閲覧のいずれかです。",
+        "en": "A pattern representing a single learner action during a test, which is either answering (Type 1 or 2) or viewing a page."
+      },
+      "alternates": [
+        "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/patterns/answered-type1",
+        "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/patterns/answered-type2",
+        "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/viewed-page"
+      ]
+    },
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/patterns/answered-type1",
+      "type": "Pattern",
+      "prefLabel": {
+        "ja": "解答パターン（タイプ1）",
+        "en": "Answer Pattern (Type 1)"
+      },
+      "definition": {
+        "ja": "1つのインタラクションが、単一のansweredステートメントで記録されるパターン。",
+        "en": "A pattern where a single interaction is recorded in a single answered statement."
+      },
+      "sequence": [
+        "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-interaction"
+      ]
+    },
+    {
+      "id": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/patterns/answered-type2",
+      "type": "Pattern",
+      "prefLabel": {
+        "ja": "解答パターン（タイプ2）",
+        "en": "Answer Pattern (Type 2)"
+      },
+      "definition": {
+        "ja": "問題レベルのansweredステートメントが1つ記録され、その後に、その問題に含まれる1つ以上のインタラクションレベルのansweredステートメントが続くパターン。",
+        "en": "A pattern where one question-level answered statement is recorded, followed by one or more interaction-level answered statements for the interactions it contains."
+      },
+      "sequence": [
+        "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-question",
+        {
+          "type": "Pattern",
+          "oneOrMore": "https://ictconnect21.jp/xapi/profiles/mexcbt/v1/templates/answered-interaction"
+        }
+      ]
+    }
+  ]
+}

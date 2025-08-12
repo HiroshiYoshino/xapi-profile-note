@@ -169,4 +169,84 @@ GOAL - A data-rich environment to foster self-direction skills across learning a
 [17]: https://researchmap.jp/kuromiya_hiroyuki?utm_source=chatgpt.com "黒宮 寛之 (Hiroyuki Kuromiya) - マイポータル - researchmap"  
 
 
+# xAPI StatementがxAPI Profileに適合するのかのチェックツール
+## xAPI Statement適合性チェックツール
 
+xAPI Statementが特定のxAPI Profileに適合しているかを検証するためのツールやサービスは、主に以下のものが利用されています。
+
+### 1. [xAPI Profile Validator (ADL xAPI Profile Server)](https://github.com/adlnet/xapi-profile-validator)
+- **概要:**  
+    ADL Initiativeが提供する公式のxAPI Profile Validator。xAPI Statementが指定したxAPI Profileのルール（動詞、アクティビティタイプ、テンプレート等）に準拠しているかを検証できます。
+- **主な特徴:**
+    - JSON-LD形式のProfileを読み込み、Statementの適合性をチェック
+    - Web UIとAPIの両方を提供
+    - [デモサイト](https://adlnet.github.io/xapi-profile-validator/)も公開
+- **利用方法:**  
+    1. ProfileのJSON-LDファイルをアップロードまたはURL指定  
+    2. チェックしたいxAPI Statementを入力  
+    3. 適合性の判定結果が表示される
+
+### 2. [Yet Analytics xAPI Profile Validator](https://github.com/yetanalytics/xapi-profile-validator)
+- **概要:**  
+    Yet Analytics社が開発したOSSのxAPI Profile Validator。コマンドラインやAPIで利用可能。
+- **主な特徴:**
+    - xAPI Profile仕様（JSON-LD）に準拠
+    - Statementのバリデーション結果を詳細に出力
+    - Node.jsベースでローカル実行も可能
+
+### 3. [Learning Locker Validator](https://github.com/LearningLocker/xapi-profile-validator)
+- **概要:**  
+    LRS（Learning Locker）に組み込まれているProfile Validator。LRSに記録されるStatementがProfileに準拠しているかを自動チェック。
+- **主な特徴:**
+    - LRS運用時に自動バリデーション
+    - Profileテンプレートの管理機能もあり
+
+### 4. [その他の関連ツール・リソース]
+- **xapi-profile-kit**  
+    [https://github.com/adlnet/xapi-profile-kit](https://github.com/adlnet/xapi-profile-kit)  
+    xAPI Profileの作成・検証・管理を支援するツール群。バリデーション機能も一部含む。
+
+- **xAPI Statement Validator**  
+    [https://github.com/adlnet/xapi-statement-validator](https://github.com/adlnet/xapi-statement-validator)  
+    Statementの構文・仕様準拠チェック用。Profile適合性チェックは限定的。
+
+---
+
+> **参考:**  
+> xAPI Profile Validatorは、Profileのテンプレートやルールに基づき、Statementが「どのテンプレートに適合するか」「必須プロパティが満たされているか」などを詳細に判定します。  
+> Profileごとにルールが異なるため、利用時は必ず対象Profileの最新版を指定してください。
+
+# xAPI Profileの表記チェック
+## xAPI Profileの記法チェックツール
+
+xAPI Profile自体（JSON-LD形式のProfileファイル）がxAPI Profile仕様に準拠しているか、記法や構造の正当性を検証するためのツール・サービスは以下の通りです。
+
+### 1. [xAPI Profile Validator (ADL xAPI Profile Server)](https://github.com/adlnet/xapi-profile-validator)
+- **概要:**  
+    ADL Initiativeが提供する公式バリデータ。xAPI Profile（JSON-LD）が仕様に沿っているかを検証できます。
+- **主な特徴:**
+    - Profileファイルの構文・必須プロパティ・リファレンス整合性などをチェック
+    - Web UIとAPIの両方を提供
+    - [デモサイト](https://adlnet.github.io/xapi-profile-validator/)でProfileファイルをアップロードして検証可能
+- **利用方法:**  
+    1. ProfileのJSON-LDファイルをアップロードまたはURL指定  
+    2. バリデーション結果（エラー・警告・合格）が表示される
+
+### 2. [xapi-profile-kit](https://github.com/adlnet/xapi-profile-kit)
+- **概要:**  
+    xAPI Profileの作成・検証・管理を支援するツール群。コマンドラインでProfileファイルのバリデーションが可能。
+- **主な特徴:**
+    - Profile仕様（JSON-LD）の構文・必須項目・参照整合性をチェック
+    - Node.jsベースでローカル実行可能
+
+### 3. [Yet Analytics xAPI Profile Validator](https://github.com/yetanalytics/xapi-profile-validator)
+- **概要:**  
+    Yet Analytics社によるOSSバリデータ。Profileファイルの仕様準拠チェックが可能。
+- **主な特徴:**
+    - コマンドラインやAPIで利用可能
+    - エラー箇所や修正ポイントを詳細に出力
+
+---
+
+> **参考:**  
+> これらのツールは、xAPI ProfileのJSON-LD構造や必須プロパティ、IDの一意性、参照整合性などを自動で検証します。Profileを公開・利用する前に、必ずこれらのバリデータで記法チェックを行うことが推奨されます。

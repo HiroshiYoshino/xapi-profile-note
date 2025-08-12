@@ -1,0 +1,392 @@
+{
+  "@context": "https://w3id.org/xapi/profiles/context",
+  "id": "https://example.org/xapi/profiles/sip",
+  "type": "Profile",
+  "prefLabel": {
+    "ja": "相互運用性を確保したペダゴジカル情報プラットフォーム xAPIプロファイル",
+    "en": "Pedagogical Interoperability Platform xAPI Profile"
+  },
+  "definition": {
+    "ja": "日本の教育現場における学習履歴の相互運用性を確保するためのxAPIプロファイル。学習eポータルやLMS等の多様なシステム間での標準的な学習活動記録を目的とする。",
+    "en": "An xAPI profile for ensuring interoperability of learning records in Japanese educational environments, enabling standardized activity tracking across e-portal and LMS systems."
+  },
+  "version": "1.0",
+  "author": [
+    {
+      "name": "相互運用性プラットフォーム検討WG",
+      "mbox": "mailto:info@example.org"
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://w3id.org/xapi/verb/launched",
+      "type": "Verb",
+      "prefLabel": { "ja": "開始", "en": "launched" },
+      "definition": { "ja": "学習活動の開始", "en": "The start of a learning activity." }
+    },
+    {
+      "id": "https://w3id.org/xapi/verb/completed",
+      "type": "Verb",
+      "prefLabel": { "ja": "完了", "en": "completed" },
+      "definition": { "ja": "学習活動の完了", "en": "Completion of a learning activity." }
+    },
+    {
+      "id": "https://w3id.org/xapi/verb/viewed",
+      "type": "Verb",
+      "prefLabel": { "ja": "閲覧", "en": "viewed" },
+      "definition": { "ja": "教材やリソースの閲覧", "en": "Viewing of content or resources." }
+    },
+    {
+      "id": "https://w3id.org/xapi/verb/submitted",
+      "type": "Verb",
+      "prefLabel": { "ja": "提出", "en": "submitted" },
+      "definition": { "ja": "課題や解答の提出", "en": "Submission of assignments or answers." }
+    },
+    {
+      "id": "https://w3id.org/xapi/verb/noted",
+      "type": "Verb",
+      "prefLabel": { "ja": "メモ", "en": "noted" },
+      "definition": { "ja": "学習中のメモ記録", "en": "Taking notes during learning." }
+    },
+    {
+      "id": "https://w3id.org/xapi/verb/answered",
+      "type": "Verb",
+      "prefLabel": { "ja": "解答", "en": "answered" },
+      "definition": { "ja": "設問への解答", "en": "Answering a question." }
+    }
+  ],
+  "activityTypes": [
+    {
+      "id": "https://w3id.org/xapi/activity-type/course",
+      "type": "ActivityType",
+      "prefLabel": { "ja": "コース", "en": "Course" }
+    },
+    {
+      "id": "https://w3id.org/xapi/activity-type/lesson",
+      "type": "ActivityType",
+      "prefLabel": { "ja": "レッスン", "en": "Lesson" }
+    },
+    {
+      "id": "https://w3id.org/xapi/activity-type/assignment",
+      "type": "ActivityType",
+      "prefLabel": { "ja": "課題", "en": "Assignment" }
+    },
+    {
+      "id": "https://w3id.org/xapi/activity-type/resource",
+      "type": "ActivityType",
+      "prefLabel": { "ja": "教材", "en": "Resource" }
+    }
+  ],
+  "extensions": [
+    {
+      "id": "https://w3id.org/xapi/extension/session_id",
+      "type": "Extension",
+      "prefLabel": { "ja": "セッションID", "en": "Session ID" }
+    },
+    {
+      "id": "https://w3id.org/xapi/extension/platform",
+      "type": "Extension",
+      "prefLabel": { "ja": "プラットフォーム", "en": "Platform" }
+    },
+    {
+      "id": "https://w3id.org/xapi/extension/instructor",
+      "type": "Extension",
+      "prefLabel": { "ja": "指導者", "en": "Instructor" }
+    }
+  ],
+  "templates": [
+    {
+      "id": "https://example.org/xapi/templates/activity-launched",
+      "type": "StatementTemplate",
+      "prefLabel": { "ja": "活動開始", "en": "Activity Launched" },
+      "verb": "https://w3id.org/xapi/verb/launched",
+      "objectActivityType": "https://w3id.org/xapi/activity-type/course",
+      "rules": [
+        {
+          "location": "object.definition.type",
+          "presence": "included",
+          "value": "https://w3id.org/xapi/activity-type/course"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/session_id']",
+          "presence": "included"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/platform']",
+          "presence": "included"
+        }
+      ],
+      "example": {
+        "actor": {
+          "objectType": "Agent",
+          "name": "高橋健一",
+          "mbox": "mailto:kenichi.takahashi@example.org"
+        },
+        "verb": {
+          "id": "https://w3id.org/xapi/verb/launched",
+          "display": { "ja": "開始", "en": "launched" }
+        },
+        "object": {
+          "id": "https://example.org/courses/2025-math",
+          "definition": {
+            "type": "https://w3id.org/xapi/activity-type/course",
+            "name": { "ja": "2025年度数学", "en": "2025 Mathematics" }
+          }
+        },
+        "context": {
+          "extensions": {
+            "https://w3id.org/xapi/extension/session_id": "session-001",
+            "https://w3id.org/xapi/extension/platform": "e-portal"
+          }
+        },
+        "timestamp": "2025-07-15T08:00:00+09:00"
+      }
+    },
+    {
+      "id": "https://example.org/xapi/templates/activity-completed",
+      "type": "StatementTemplate",
+      "prefLabel": { "ja": "活動完了", "en": "Activity Completed" },
+      "verb": "https://w3id.org/xapi/verb/completed",
+      "objectActivityType": "https://w3id.org/xapi/activity-type/course",
+      "rules": [
+        {
+          "location": "object.definition.type",
+          "presence": "included",
+          "value": "https://w3id.org/xapi/activity-type/course"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/session_id']",
+          "presence": "included"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/platform']",
+          "presence": "included"
+        }
+      ],
+      "example": {
+        "actor": {
+          "objectType": "Agent",
+          "name": "高橋健一",
+          "mbox": "mailto:kenichi.takahashi@example.org"
+        },
+        "verb": {
+          "id": "https://w3id.org/xapi/verb/completed",
+          "display": { "ja": "完了", "en": "completed" }
+        },
+        "object": {
+          "id": "https://example.org/courses/2025-math",
+          "definition": {
+            "type": "https://w3id.org/xapi/activity-type/course",
+            "name": { "ja": "2025年度数学", "en": "2025 Mathematics" }
+          }
+        },
+        "context": {
+          "extensions": {
+            "https://w3id.org/xapi/extension/session_id": "session-001",
+            "https://w3id.org/xapi/extension/platform": "e-portal"
+          }
+        },
+        "timestamp": "2025-07-15T17:00:00+09:00"
+      }
+    },
+    {
+      "id": "https://example.org/xapi/templates/lesson-viewed",
+      "type": "StatementTemplate",
+      "prefLabel": { "ja": "レッスン閲覧", "en": "Lesson Viewed" },
+      "verb": "https://w3id.org/xapi/verb/viewed",
+      "objectActivityType": "https://w3id.org/xapi/activity-type/lesson",
+      "rules": [
+        {
+          "location": "object.definition.type",
+          "presence": "included",
+          "value": "https://w3id.org/xapi/activity-type/lesson"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/session_id']",
+          "presence": "included"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/platform']",
+          "presence": "included"
+        }
+      ],
+      "example": {
+        "actor": {
+          "objectType": "Agent",
+          "name": "山田太郎",
+          "mbox": "mailto:taro.yamada@example.org"
+        },
+        "verb": {
+          "id": "https://w3id.org/xapi/verb/viewed",
+          "display": { "ja": "閲覧", "en": "viewed" }
+        },
+        "object": {
+          "id": "https://example.org/lessons/12345",
+          "definition": {
+            "type": "https://w3id.org/xapi/activity-type/lesson",
+            "name": { "ja": "第1回 数学", "en": "Lesson 1: Mathematics" }
+          }
+        },
+        "context": {
+          "extensions": {
+            "https://w3id.org/xapi/extension/session_id": "session-002",
+            "https://w3id.org/xapi/extension/platform": "e-portal"
+          }
+        },
+        "timestamp": "2025-07-15T09:00:00+09:00"
+      }
+    },
+    {
+      "id": "https://example.org/xapi/templates/assignment-submitted",
+      "type": "StatementTemplate",
+      "prefLabel": { "ja": "課題提出", "en": "Assignment Submitted" },
+      "verb": "https://w3id.org/xapi/verb/submitted",
+      "objectActivityType": "https://w3id.org/xapi/activity-type/assignment",
+      "rules": [
+        {
+          "location": "object.definition.type",
+          "presence": "included",
+          "value": "https://w3id.org/xapi/activity-type/assignment"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/session_id']",
+          "presence": "included"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/platform']",
+          "presence": "included"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/instructor']",
+          "presence": "included"
+        }
+      ],
+      "example": {
+        "actor": {
+          "objectType": "Agent",
+          "name": "佐藤花子",
+          "mbox": "mailto:hanako.sato@example.org"
+        },
+        "verb": {
+          "id": "https://w3id.org/xapi/verb/submitted",
+          "display": { "ja": "提出", "en": "submitted" }
+        },
+        "object": {
+          "id": "https://example.org/assignments/67890",
+          "definition": {
+            "type": "https://w3id.org/xapi/activity-type/assignment",
+            "name": { "ja": "第1回レポート", "en": "Report 1" }
+          }
+        },
+        "context": {
+          "extensions": {
+            "https://w3id.org/xapi/extension/session_id": "session-003",
+            "https://w3id.org/xapi/extension/platform": "e-portal",
+            "https://w3id.org/xapi/extension/instructor": "山田太郎"
+          }
+        },
+        "timestamp": "2025-07-15T10:00:00+09:00"
+      }
+    },
+    {
+      "id": "https://example.org/xapi/templates/resource-noted",
+      "type": "StatementTemplate",
+      "prefLabel": { "ja": "教材メモ", "en": "Resource Noted" },
+      "verb": "https://w3id.org/xapi/verb/noted",
+      "objectActivityType": "https://w3id.org/xapi/activity-type/resource",
+      "rules": [
+        {
+          "location": "object.definition.type",
+          "presence": "included",
+          "value": "https://w3id.org/xapi/activity-type/resource"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/session_id']",
+          "presence": "included"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/platform']",
+          "presence": "included"
+        }
+      ],
+      "example": {
+        "actor": {
+          "objectType": "Agent",
+          "name": "田中一郎",
+          "mbox": "mailto:ichiro.tanaka@example.org"
+        },
+        "verb": {
+          "id": "https://w3id.org/xapi/verb/noted",
+          "display": { "ja": "メモ", "en": "noted" }
+        },
+        "object": {
+          "id": "https://example.org/resources/abcde",
+          "definition": {
+            "type": "https://w3id.org/xapi/activity-type/resource",
+            "name": { "ja": "資料A", "en": "Resource A" }
+          }
+        },
+        "context": {
+          "extensions": {
+            "https://w3id.org/xapi/extension/session_id": "session-004",
+            "https://w3id.org/xapi/extension/platform": "e-portal"
+          }
+        },
+        "result": {
+          "response": "重要なポイントをメモした"
+        },
+        "timestamp": "2025-07-15T11:00:00+09:00"
+      }
+    },
+    {
+      "id": "https://example.org/xapi/templates/question-answered",
+      "type": "StatementTemplate",
+      "prefLabel": { "ja": "設問解答", "en": "Question Answered" },
+      "verb": "https://w3id.org/xapi/verb/answered",
+      "objectActivityType": "https://w3id.org/xapi/activity-type/assignment",
+      "rules": [
+        {
+          "location": "object.definition.type",
+          "presence": "included",
+          "value": "https://w3id.org/xapi/activity-type/assignment"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/session_id']",
+          "presence": "included"
+        },
+        {
+          "location": "context.extensions['https://w3id.org/xapi/extension/platform']",
+          "presence": "included"
+        }
+      ],
+      "example": {
+        "actor": {
+          "objectType": "Agent",
+          "name": "鈴木次郎",
+          "mbox": "mailto:jiro.suzuki@example.org"
+        },
+        "verb": {
+          "id": "https://w3id.org/xapi/verb/answered",
+          "display": { "ja": "解答", "en": "answered" }
+        },
+        "object": {
+          "id": "https://example.org/assignments/67890/questions/1",
+          "definition": {
+            "type": "https://w3id.org/xapi/activity-type/assignment",
+            "name": { "ja": "第1問", "en": "Question 1" }
+          }
+        },
+        "context": {
+          "extensions": {
+            "https://w3id.org/xapi/extension/session_id": "session-003",
+            "https://w3id.org/xapi/extension/platform": "e-portal"
+          }
+        },
+        "result": {
+          "response": "42"
+        },
+        "timestamp": "2025-07-15T12:00:00+09:00"
+      }
+    }
+  ]
+}
